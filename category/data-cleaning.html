@@ -1,0 +1,3498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <title>Bang's Blog - Data cleaning</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+
+        <!--[if IE]>
+            <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">Bang's Blog </a></h1>
+                <nav><ul>
+                    <li class="active"><a href="/category/data-cleaning.html">Data cleaning</a></li>
+                </ul>
+                </nav>
+        </header><!-- /#banner -->
+
+            <aside id="featured" class="body">
+                <article>
+                    <h1 class="entry-title"><a href="/Chat_content_finding.html">Chat content finding</a></h1>
+<footer class="post-info">
+        <span>周六 27 十月 2018</span>
+<span>| tags: <a href="/tag/data-cleaning.html">Data cleaning</a></span>
+</footer><!-- /.post-info --><style type="text/css">/*!
+*
+* IPython notebook
+*
+*/
+/* CSS font colors for translated ANSI colors. */
+.ansibold {
+  font-weight: bold;
+}
+/* use dark versions for foreground, to improve visibility */
+.ansiblack {
+  color: black;
+}
+.ansired {
+  color: darkred;
+}
+.ansigreen {
+  color: darkgreen;
+}
+.ansiyellow {
+  color: #c4a000;
+}
+.ansiblue {
+  color: darkblue;
+}
+.ansipurple {
+  color: darkviolet;
+}
+.ansicyan {
+  color: steelblue;
+}
+.ansigray {
+  color: gray;
+}
+/* and light for background, for the same reason */
+.ansibgblack {
+  background-color: black;
+}
+.ansibgred {
+  background-color: red;
+}
+.ansibggreen {
+  background-color: green;
+}
+.ansibgyellow {
+  background-color: yellow;
+}
+.ansibgblue {
+  background-color: blue;
+}
+.ansibgpurple {
+  background-color: magenta;
+}
+.ansibgcyan {
+  background-color: cyan;
+}
+.ansibggray {
+  background-color: gray;
+}
+div.cell {
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  border-radius: 2px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  border-width: 1px;
+  border-style: solid;
+  border-color: transparent;
+  width: 100%;
+  padding: 5px;
+  /* This acts as a spacer between cells, that is outside the border */
+  margin: 0px;
+  outline: none;
+  border-left-width: 1px;
+  padding-left: 5px;
+  background: linear-gradient(to right, transparent -40px, transparent 1px, transparent 1px, transparent 100%);
+}
+div.cell.jupyter-soft-selected {
+  border-left-color: #90CAF9;
+  border-left-color: #E3F2FD;
+  border-left-width: 1px;
+  padding-left: 5px;
+  border-right-color: #E3F2FD;
+  border-right-width: 1px;
+  background: #E3F2FD;
+}
+@media print {
+  div.cell.jupyter-soft-selected {
+    border-color: transparent;
+  }
+}
+div.cell.selected {
+  border-color: #ababab;
+  border-left-width: 0px;
+  padding-left: 6px;
+  background: linear-gradient(to right, #42A5F5 -40px, #42A5F5 5px, transparent 5px, transparent 100%);
+}
+@media print {
+  div.cell.selected {
+    border-color: transparent;
+  }
+}
+div.cell.selected.jupyter-soft-selected {
+  border-left-width: 0;
+  padding-left: 6px;
+  background: linear-gradient(to right, #42A5F5 -40px, #42A5F5 7px, #E3F2FD 7px, #E3F2FD 100%);
+}
+.edit_mode div.cell.selected {
+  border-color: #66BB6A;
+  border-left-width: 0px;
+  padding-left: 6px;
+  background: linear-gradient(to right, #66BB6A -40px, #66BB6A 5px, transparent 5px, transparent 100%);
+}
+@media print {
+  .edit_mode div.cell.selected {
+    border-color: transparent;
+  }
+}
+.prompt {
+  /* This needs to be wide enough for 3 digit prompt numbers: In[100]: */
+  min-width: 14ex;
+  /* This padding is tuned to match the padding on the CodeMirror editor. */
+  padding: 0.4em;
+  margin: 0px;
+  font-family: monospace;
+  text-align: right;
+  /* This has to match that of the the CodeMirror class line-height below */
+  line-height: 1.21429em;
+  /* Don't highlight prompt number selection */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  /* Use default cursor */
+  cursor: default;
+}
+@media (max-width: 540px) {
+  .prompt {
+    text-align: left;
+  }
+}
+div.inner_cell {
+  min-width: 0;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  /* Old browsers */
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  box-flex: 1;
+  /* Modern browsers */
+  flex: 1;
+}
+/* input_area and input_prompt must match in top border and margin for alignment */
+div.input_area {
+  border: 1px solid #cfcfcf;
+  border-radius: 2px;
+  background: #f7f7f7;
+  line-height: 1.21429em;
+}
+/* This is needed so that empty prompt areas can collapse to zero height when there
+   is no content in the output_subarea and the prompt. The main purpose of this is
+   to make sure that empty JavaScript output_subareas have no height. */
+div.prompt:empty {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+div.unrecognized_cell {
+  padding: 5px 5px 5px 0px;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+div.unrecognized_cell .inner_cell {
+  border-radius: 2px;
+  padding: 5px;
+  font-weight: bold;
+  color: red;
+  border: 1px solid #cfcfcf;
+  background: #eaeaea;
+}
+div.unrecognized_cell .inner_cell a {
+  color: inherit;
+  text-decoration: none;
+}
+div.unrecognized_cell .inner_cell a:hover {
+  color: inherit;
+  text-decoration: none;
+}
+@media (max-width: 540px) {
+  div.unrecognized_cell > div.prompt {
+    display: none;
+  }
+}
+div.code_cell {
+  /* avoid page breaking on code cells when printing */
+}
+@media print {
+  div.code_cell {
+    page-break-inside: avoid;
+  }
+}
+/* any special styling for code cells that are currently running goes here */
+div.input {
+  page-break-inside: avoid;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+@media (max-width: 540px) {
+  div.input {
+    /* Old browsers */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-box-align: stretch;
+    display: -moz-box;
+    -moz-box-orient: vertical;
+    -moz-box-align: stretch;
+    display: box;
+    box-orient: vertical;
+    box-align: stretch;
+    /* Modern browsers */
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+/* input_area and input_prompt must match in top border and margin for alignment */
+div.input_prompt {
+  color: #303F9F;
+  border-top: 1px solid transparent;
+}
+div.input_area > div.highlight {
+  margin: 0.4em;
+  border: none;
+  padding: 0px;
+  background-color: transparent;
+}
+div.input_area > div.highlight > pre {
+  margin: 0px;
+  border: none;
+  padding: 0px;
+  background-color: transparent;
+}
+/* The following gets added to the <head> if it is detected that the user has a
+ * monospace font with inconsistent normal/bold/italic height.  See
+ * notebookmain.js.  Such fonts will have keywords vertically offset with
+ * respect to the rest of the text.  The user should select a better font.
+ * See: https://github.com/ipython/ipython/issues/1503
+ *
+ * .CodeMirror span {
+ *      vertical-align: bottom;
+ * }
+ */
+.CodeMirror {
+  line-height: 1.21429em;
+  /* Changed from 1em to our global default */
+  font-size: 14px;
+  height: auto;
+  /* Changed to auto to autogrow */
+  background: none;
+  /* Changed from white to allow our bg to show through */
+}
+.CodeMirror-scroll {
+  /*  The CodeMirror docs are a bit fuzzy on if overflow-y should be hidden or visible.*/
+  /*  We have found that if it is visible, vertical scrollbars appear with font size changes.*/
+  overflow-y: hidden;
+  overflow-x: auto;
+}
+.CodeMirror-lines {
+  /* In CM2, this used to be 0.4em, but in CM3 it went to 4px. We need the em value because */
+  /* we have set a different line-height and want this to scale with that. */
+  padding: 0.4em;
+}
+.CodeMirror-linenumber {
+  padding: 0 8px 0 4px;
+}
+.CodeMirror-gutters {
+  border-bottom-left-radius: 2px;
+  border-top-left-radius: 2px;
+}
+.CodeMirror pre {
+  /* In CM3 this went to 4px from 0 in CM2. We need the 0 value because of how we size */
+  /* .CodeMirror-lines */
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+}
+/*
+
+Original style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiacs.Org>
+Adapted from GitHub theme
+
+*/
+.highlight-base {
+  color: #000;
+}
+.highlight-variable {
+  color: #000;
+}
+.highlight-variable-2 {
+  color: #1a1a1a;
+}
+.highlight-variable-3 {
+  color: #333333;
+}
+.highlight-string {
+  color: #BA2121;
+}
+.highlight-comment {
+  color: #408080;
+  font-style: italic;
+}
+.highlight-number {
+  color: #080;
+}
+.highlight-atom {
+  color: #88F;
+}
+.highlight-keyword {
+  color: #008000;
+  font-weight: bold;
+}
+.highlight-builtin {
+  color: #008000;
+}
+.highlight-error {
+  color: #f00;
+}
+.highlight-operator {
+  color: #AA22FF;
+  font-weight: bold;
+}
+.highlight-meta {
+  color: #AA22FF;
+}
+/* previously not defined, copying from default codemirror */
+.highlight-def {
+  color: #00f;
+}
+.highlight-string-2 {
+  color: #f50;
+}
+.highlight-qualifier {
+  color: #555;
+}
+.highlight-bracket {
+  color: #997;
+}
+.highlight-tag {
+  color: #170;
+}
+.highlight-attribute {
+  color: #00c;
+}
+.highlight-header {
+  color: blue;
+}
+.highlight-quote {
+  color: #090;
+}
+.highlight-link {
+  color: #00c;
+}
+/* apply the same style to codemirror */
+.cm-s-ipython span.cm-keyword {
+  color: #008000;
+  font-weight: bold;
+}
+.cm-s-ipython span.cm-atom {
+  color: #88F;
+}
+.cm-s-ipython span.cm-number {
+  color: #080;
+}
+.cm-s-ipython span.cm-def {
+  color: #00f;
+}
+.cm-s-ipython span.cm-variable {
+  color: #000;
+}
+.cm-s-ipython span.cm-operator {
+  color: #AA22FF;
+  font-weight: bold;
+}
+.cm-s-ipython span.cm-variable-2 {
+  color: #1a1a1a;
+}
+.cm-s-ipython span.cm-variable-3 {
+  color: #333333;
+}
+.cm-s-ipython span.cm-comment {
+  color: #408080;
+  font-style: italic;
+}
+.cm-s-ipython span.cm-string {
+  color: #BA2121;
+}
+.cm-s-ipython span.cm-string-2 {
+  color: #f50;
+}
+.cm-s-ipython span.cm-meta {
+  color: #AA22FF;
+}
+.cm-s-ipython span.cm-qualifier {
+  color: #555;
+}
+.cm-s-ipython span.cm-builtin {
+  color: #008000;
+}
+.cm-s-ipython span.cm-bracket {
+  color: #997;
+}
+.cm-s-ipython span.cm-tag {
+  color: #170;
+}
+.cm-s-ipython span.cm-attribute {
+  color: #00c;
+}
+.cm-s-ipython span.cm-header {
+  color: blue;
+}
+.cm-s-ipython span.cm-quote {
+  color: #090;
+}
+.cm-s-ipython span.cm-link {
+  color: #00c;
+}
+.cm-s-ipython span.cm-error {
+  color: #f00;
+}
+.cm-s-ipython span.cm-tab {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAMCAYAAAAkuj5RAAAAAXNSR0IArs4c6QAAAGFJREFUSMft1LsRQFAQheHPowAKoACx3IgEKtaEHujDjORSgWTH/ZOdnZOcM/sgk/kFFWY0qV8foQwS4MKBCS3qR6ixBJvElOobYAtivseIE120FaowJPN75GMu8j/LfMwNjh4HUpwg4LUAAAAASUVORK5CYII=);
+  background-position: right;
+  background-repeat: no-repeat;
+}
+div.output_wrapper {
+  /* this position must be relative to enable descendents to be absolute within it */
+  position: relative;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  z-index: 1;
+}
+/* class for the output area when it should be height-limited */
+div.output_scroll {
+  /* ideally, this would be max-height, but FF barfs all over that */
+  height: 24em;
+  /* FF needs this *and the wrapper* to specify full width, or it will shrinkwrap */
+  width: 100%;
+  overflow: auto;
+  border-radius: 2px;
+  -webkit-box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8);
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8);
+  display: block;
+}
+/* output div while it is collapsed */
+div.output_collapsed {
+  margin: 0px;
+  padding: 0px;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+div.out_prompt_overlay {
+  height: 100%;
+  padding: 0px 0.4em;
+  position: absolute;
+  border-radius: 2px;
+}
+div.out_prompt_overlay:hover {
+  /* use inner shadow to get border that is computed the same on WebKit/FF */
+  -webkit-box-shadow: inset 0 0 1px #000;
+  box-shadow: inset 0 0 1px #000;
+  background: rgba(240, 240, 240, 0.5);
+}
+div.output_prompt {
+  color: #D84315;
+}
+/* This class is the outer container of all output sections. */
+div.output_area {
+  padding: 0px;
+  page-break-inside: avoid;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+div.output_area .MathJax_Display {
+  text-align: left !important;
+}
+div.output_area 
+div.output_area 
+div.output_area img,
+div.output_area svg {
+  max-width: 100%;
+  height: auto;
+}
+div.output_area img.unconfined,
+div.output_area svg.unconfined {
+  max-width: none;
+}
+/* This is needed to protect the pre formating from global settings such
+   as that of bootstrap */
+.output {
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+@media (max-width: 540px) {
+  div.output_area {
+    /* Old browsers */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-box-align: stretch;
+    display: -moz-box;
+    -moz-box-orient: vertical;
+    -moz-box-align: stretch;
+    display: box;
+    box-orient: vertical;
+    box-align: stretch;
+    /* Modern browsers */
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+div.output_area pre {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+  color: black;
+  background-color: transparent;
+  border-radius: 0;
+}
+/* This class is for the output subarea inside the output_area and after
+   the prompt div. */
+div.output_subarea {
+  overflow-x: auto;
+  padding: 0.4em;
+  /* Old browsers */
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  box-flex: 1;
+  /* Modern browsers */
+  flex: 1;
+  max-width: calc(100% - 14ex);
+}
+div.output_scroll div.output_subarea {
+  overflow-x: visible;
+}
+/* The rest of the output_* classes are for special styling of the different
+   output types */
+/* all text output has this class: */
+div.output_text {
+  text-align: left;
+  color: #000;
+  /* This has to match that of the the CodeMirror class line-height below */
+  line-height: 1.21429em;
+}
+/* stdout/stderr are 'text' as well as 'stream', but execute_result/error are *not* streams */
+div.output_stderr {
+  background: #fdd;
+  /* very light red background for stderr */
+}
+div.output_latex {
+  text-align: left;
+}
+/* Empty output_javascript divs should have no height */
+div.output_javascript:empty {
+  padding: 0;
+}
+.js-error {
+  color: darkred;
+}
+/* raw_input styles */
+div.raw_input_container {
+  line-height: 1.21429em;
+  padding-top: 5px;
+}
+pre.raw_input_prompt {
+  /* nothing needed here. */
+}
+input.raw_input {
+  font-family: monospace;
+  font-size: inherit;
+  color: inherit;
+  width: auto;
+  /* make sure input baseline aligns with prompt */
+  vertical-align: baseline;
+  /* padding + margin = 0.5em between prompt and cursor */
+  padding: 0em 0.25em;
+  margin: 0em 0.25em;
+}
+input.raw_input:focus {
+  box-shadow: none;
+}
+p.p-space {
+  margin-bottom: 10px;
+}
+div.output_unrecognized {
+  padding: 5px;
+  font-weight: bold;
+  color: red;
+}
+div.output_unrecognized a {
+  color: inherit;
+  text-decoration: none;
+}
+div.output_unrecognized a:hover {
+  color: inherit;
+  text-decoration: none;
+}
+.rendered_html {
+  color: #000;
+  /* any extras will just be numbers: */
+}
+
+
+
+.rendered_html :link {
+  text-decoration: underline;
+}
+.rendered_html :visited {
+  text-decoration: underline;
+}
+
+
+
+
+
+
+.rendered_html h1:first-child {
+  margin-top: 0.538em;
+}
+.rendered_html h2:first-child {
+  margin-top: 0.636em;
+}
+.rendered_html h3:first-child {
+  margin-top: 0.777em;
+}
+.rendered_html h4:first-child {
+  margin-top: 1em;
+}
+.rendered_html h5:first-child {
+  margin-top: 1em;
+}
+.rendered_html h6:first-child {
+  margin-top: 1em;
+}
+
+
+
+
+
+
+
+
+.rendered_html * + ul {
+  margin-top: 1em;
+}
+.rendered_html * + ol {
+  margin-top: 1em;
+}
+
+
+.rendered_html pre,
+
+
+
+.rendered_html tr,
+.rendered_html th,
+
+.rendered_html td,
+
+
+.rendered_html * + table {
+  margin-top: 1em;
+}
+
+.rendered_html * + p {
+  margin-top: 1em;
+}
+
+.rendered_html * + img {
+  margin-top: 1em;
+}
+.rendered_html img,
+
+.rendered_html img.unconfined,
+
+div.text_cell {
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+@media (max-width: 540px) {
+  div.text_cell > div.prompt {
+    display: none;
+  }
+}
+div.text_cell_render {
+  /*font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;*/
+  outline: none;
+  resize: none;
+  width: inherit;
+  border-style: none;
+  padding: 0.5em 0.5em 0.5em 0.4em;
+  color: #000;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+a.anchor-link:link {
+  text-decoration: none;
+  padding: 0px 20px;
+  visibility: hidden;
+}
+h1:hover .anchor-link,
+h2:hover .anchor-link,
+h3:hover .anchor-link,
+h4:hover .anchor-link,
+h5:hover .anchor-link,
+h6:hover .anchor-link {
+  visibility: visible;
+}
+.text_cell.rendered .input_area {
+  display: none;
+}
+.text_cell.rendered 
+.text_cell.unrendered .text_cell_render {
+  display: none;
+}
+.cm-header-1,
+.cm-header-2,
+.cm-header-3,
+.cm-header-4,
+.cm-header-5,
+.cm-header-6 {
+  font-weight: bold;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.cm-header-1 {
+  font-size: 185.7%;
+}
+.cm-header-2 {
+  font-size: 157.1%;
+}
+.cm-header-3 {
+  font-size: 128.6%;
+}
+.cm-header-4 {
+  font-size: 110%;
+}
+.cm-header-5 {
+  font-size: 100%;
+  font-style: italic;
+}
+.cm-header-6 {
+  font-size: 100%;
+  font-style: italic;
+}
+</style>
+<style type="text/css">.highlight .hll { background-color: #ffffcc }
+.highlight  { background: #f8f8f8; }
+.highlight .c { color: #408080; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #008000; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .ch { color: #408080; font-style: italic } /* Comment.Hashbang */
+.highlight .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #BC7A00 } /* Comment.Preproc */
+.highlight .cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
+.highlight .c1 { color: #408080; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #408080; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #008000 } /* Keyword.Pseudo */
+.highlight .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #B00040 } /* Keyword.Type */
+.highlight .m { color: #666666 } /* Literal.Number */
+.highlight .s { color: #BA2121 } /* Literal.String */
+.highlight .na { color: #7D9029 } /* Name.Attribute */
+.highlight .nb { color: #008000 } /* Name.Builtin */
+.highlight .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.highlight .no { color: #880000 } /* Name.Constant */
+.highlight .nd { color: #AA22FF } /* Name.Decorator */
+.highlight .ni { color: #999999; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #0000FF } /* Name.Function */
+.highlight .nl { color: #A0A000 } /* Name.Label */
+.highlight .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #19177C } /* Name.Variable */
+.highlight .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #666666 } /* Literal.Number.Bin */
+.highlight .mf { color: #666666 } /* Literal.Number.Float */
+.highlight .mh { color: #666666 } /* Literal.Number.Hex */
+.highlight .mi { color: #666666 } /* Literal.Number.Integer */
+.highlight .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight .sa { color: #BA2121 } /* Literal.String.Affix */
+.highlight .sb { color: #BA2121 } /* Literal.String.Backtick */
+.highlight .sc { color: #BA2121 } /* Literal.String.Char */
+.highlight .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.highlight .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #BA2121 } /* Literal.String.Double */
+.highlight .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.highlight .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.highlight .sx { color: #008000 } /* Literal.String.Other */
+.highlight .sr { color: #BB6688 } /* Literal.String.Regex */
+.highlight .s1 { color: #BA2121 } /* Literal.String.Single */
+.highlight .ss { color: #19177C } /* Literal.String.Symbol */
+.highlight .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.highlight .fm { color: #0000FF } /* Name.Function.Magic */
+.highlight .vc { color: #19177C } /* Name.Variable.Class */
+.highlight .vg { color: #19177C } /* Name.Variable.Global */
+.highlight .vi { color: #19177C } /* Name.Variable.Instance */
+.highlight .vm { color: #19177C } /* Name.Variable.Magic */
+.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */</style>
+<style type="text/css">
+/* Temporary definitions which will become obsolete with Notebook release 5.0 */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-bold { font-weight: bold; }
+</style>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">simplejson</span> <span class="k">import</span> <span class="n">JSONDecodeError</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">dateutil</span> <span class="k">import</span> <span class="n">parser</span>
+<span class="kn">import</span> <span class="nn">jieba</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;chatting_records.xls&#39;</span><span class="p">,</span><span class="n">encoding</span> <span class="o">=</span> <span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[15]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(40425, 14)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 定义判断回复类型得函数</span>
+<span class="k">def</span> <span class="nf">fun</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="s1">&#39;自定义卡片消息&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;系统回复&#39;</span>
+<span class="c1">#定义解析聊天记录的函数</span>
+<span class="k">def</span> <span class="nf">parse_chat_record</span><span class="p">(</span><span class="n">record</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">record</span><span class="p">)[</span><span class="s1">&#39;Title&#39;</span><span class="p">]</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">record</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;回复类型&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;消息类型&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">fun</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="c1"># 提取机器自动回复的聊天内容</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;chat_content&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;聊天记录&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">parse_chat_record</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 系统回复的内容统计</span>
+<span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;回复类型&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;系统回复&#39;</span><span class="p">][</span><span class="s1">&#39;chat_content&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[18]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[通知消息]                                                                     1863
+您好，为了更好的解答您的问题和推荐产品，请先告知下您要办理的签证国家、常住地以及预计出行的时间？                            561
+［通知消息］                                                                      537
+您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？                                    310
+您好，很高兴为您服务，为了更好的为您咨询，请告知下您的护照签发地、常住工作地、出发日期和需要办理签证的国家？                      120
+自助菜单回复                                                                       70
+您好，我是携程签证客服陈哈妮，很高兴为您服务。                                                      48
+您好，我是携程签证客服悦云鹏，很高兴为您服务。                                                      42
+您好，我是携程签证客服张小羊，很高兴为您服务。                                                      35
+您好，我是携程签证客服小查，很高兴为您服务。                                                       35
+您好，我是携程签证客服张婷婷，很高兴为您服务。                                                      32
+您好，我是携程签证客服李艾文，很高兴为您服务。                                                      29
+您好，很高兴为您服务，请问有什么可以帮您？\r\n因目前咨询的客人比较多，可能需要您等待一会会哦～您可以留言，我们会第一时间回复您的，谢谢您～      27
+您好，我是携程签证客服瑶瑶，很高兴为您服务。                                                       22
+您好，我是携程签证客服李子木，很高兴为您服务。                                                      19
+您好，我是携程签证客服丘丘，很高兴为您服务。                                                       17
+您好，我是携程签证客服小雯，很高兴为您服务。                                                       14
+您好，我暂时不在线，您可以先留言问题，我将尽快答复您。                                                  13
+您好，我是携程签证客服蒙小洁，很高兴为您服务。                                                      12
+机器人自动回复                                                                       9
+您好，我是携程签证客服闫小君，很高兴为您服务。                                                       8
+您好，我是携程签证客服丹丹，很高兴为您服务。                                                        7
+日本签证办理问题                                                                      6
+您好，我是携程签证客服徐大成，很高兴为您服务。                                                       5
+您好，我是携程签证客服覃小芩，很高兴为您服务。                                                       5
+日本签证其他材料                                                                      4
+您好，我是携程签证客服刘柳，很高兴为您服务。                                                        4
+日本签证资产问题                                                                      3
+签证怎么办？                                                                        2
+泰签有效期、停留期？                                                                    2
+                                                                           ... 
+请问，我是自由行，可以在你这边办日本签证吗？                                                        1
+您好，我是您的携程旅行顾问携程旅行顾问沈陵华，很高兴为您服务。请问有什么可以帮您？                                     1
+你好，申请日本签证，需要提供正本护照吗？                                                          1
+您好，我是您的携程旅行顾问携程旅行顾问王鑫语，很高兴为您服务。请问有什么可以帮您？                                     1
+材料邮寄地址/收件人/电话                                                                 1
+一般资产提供哪些                                                                      1
+主副申请人要一起？                                                                     1
+马来西亚受理问题                                                                      1
+签证有效期、停留期？                                                                    1
+什么是签证转移？                                                                      1
+如何上传预审材料                                                                      1
+行程结束后，有问题请戳这里                                                                 1
+您好，我是您的携程售后客服韩金娥，很高兴为您服务                                                      1
+签证出签后如何配送？                                                                    1
+办签进度                                                                          1
+咨询旅游线路问题                                                                      1
+加拿大签证材料问题                                                                     1
+您好，我是您的携程售后客服王艳娟.，很高兴为您服务                                                     1
+入台证的常识问题                                                                      1
+办签需要哪些材料？                                                                     1
+泰国签证预订问题                                                                      1
+您好，我是携程签证客服张无忌，很高兴为您服务。                                                       1
+去塞班不用办理赴美签证吗                                                                  1
+受理时长                                                                          1
+签证需要哪些材料？                                                                     1
+签证常识相关问题                                                                      1
+您好，我是携程客服玩乐海外肖爽，很高兴为您服务。                                                      1
+出签后能改行程吗？                                                                     1
+您好，我是您的携程旅行顾问携程旅行顾问浦小健，很高兴为您服务。请问有什么可以帮您？                                     1
+材料已交,请戳这里~                                                                    1
+Name: chat_content, Length: 85, dtype: int64</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 更新记录中的回复类型</span>
+<span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[((</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;发送人角色&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">())</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;消息类型&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;文本&#39;</span><span class="p">)),</span><span class="s1">&#39;回复类型&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;客人回复&#39;</span>
+<span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[((</span><span class="o">~</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;发送人角色&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">())</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;消息类型&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;文本&#39;</span><span class="p">)),</span><span class="s1">&#39;回复类型&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;签证客服回复&#39;</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data_modify</span> <span class="o">=</span> <span class="n">data</span><span class="p">[[</span><span class="s1">&#39;发言时间&#39;</span><span class="p">,</span><span class="s1">&#39;群ID&#39;</span><span class="p">,</span><span class="s1">&#39;chat_content&#39;</span><span class="p">,</span><span class="s1">&#39;回复类型&#39;</span><span class="p">]]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 修改data中的发言时间数据类型为时间类型，方便后面进行时间比较</span>
+<span class="n">data_modify</span><span class="p">[</span><span class="s1">&#39;发言时间_time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_modify</span><span class="p">[</span><span class="s1">&#39;发言时间&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>C:\ProgramData\Anaconda3\lib\site-packages\ipykernel_launcher.py:2: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+  
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="&#26576;&#31995;&#32479;&#28040;&#24687;&#30340;&#22238;&#22797;">&#26576;&#31995;&#32479;&#28040;&#24687;&#30340;&#22238;&#22797;<a class="anchor-link" href="#&#26576;&#31995;&#32479;&#28040;&#24687;&#30340;&#22238;&#22797;">&#182;</a></h2><p>具体就是，针对于某一句chat_content内容，回复类型为系统回复，试图通过coding找到其下一句的回复是什么，之后就可以计算回复率</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[28]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 确定要分析的系统聊天内容</span>
+<span class="n">target_content</span> <span class="o">=</span> <span class="s1">&#39;您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？&#39;</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[30]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data_target_content</span> <span class="o">=</span> <span class="n">data_modify</span><span class="p">[</span><span class="n">data_modify</span><span class="p">[</span><span class="s1">&#39;chat_content&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">target_content</span><span class="p">]</span>
+<span class="n">display</span><span class="p">(</span><span class="n">data_modify</span><span class="p">[</span><span class="n">data_modify</span><span class="p">[</span><span class="s1">&#39;chat_content&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">target_content</span><span class="p">],</span><span class="s1">&#39;%Y-%M-%D %I:%M%p&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+
+<div class="output_html rendered_html output_subarea ">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>发言时间</th>
+      <th>群ID</th>
+      <th>chat_content</th>
+      <th>回复类型</th>
+      <th>发言时间_time</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>26029</th>
+      <td>2018-10-11 15:00:05</td>
+      <td>1045192255968641044</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:00:05</td>
+    </tr>
+    <tr>
+      <th>26075</th>
+      <td>2018-10-11 15:00:30</td>
+      <td>1045192536819236884</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:00:30</td>
+    </tr>
+    <tr>
+      <th>26108</th>
+      <td>2018-10-11 15:00:47</td>
+      <td>1028848177060511760</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:00:47</td>
+    </tr>
+    <tr>
+      <th>26160</th>
+      <td>2018-10-11 15:01:23</td>
+      <td>1031892048778625044</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:01:23</td>
+    </tr>
+    <tr>
+      <th>26174</th>
+      <td>2018-10-11 15:01:29</td>
+      <td>1045192831276154900</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:01:29</td>
+    </tr>
+    <tr>
+      <th>26224</th>
+      <td>2018-10-11 15:01:56</td>
+      <td>1045193128518090768</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:01:56</td>
+    </tr>
+    <tr>
+      <th>26279</th>
+      <td>2018-10-11 15:02:22</td>
+      <td>989702329739509776</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:02:22</td>
+    </tr>
+    <tr>
+      <th>26423</th>
+      <td>2018-10-11 15:03:37</td>
+      <td>987464280473337880</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:03:37</td>
+    </tr>
+    <tr>
+      <th>26429</th>
+      <td>2018-10-11 15:03:41</td>
+      <td>1045193965810221072</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:03:41</td>
+    </tr>
+    <tr>
+      <th>26431</th>
+      <td>2018-10-11 15:03:42</td>
+      <td>1045134520166121492</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:03:42</td>
+    </tr>
+    <tr>
+      <th>26447</th>
+      <td>2018-10-11 15:03:47</td>
+      <td>975321650176196624</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:03:47</td>
+    </tr>
+    <tr>
+      <th>26485</th>
+      <td>2018-10-11 15:04:10</td>
+      <td>1016997100082167828</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:04:10</td>
+    </tr>
+    <tr>
+      <th>26486</th>
+      <td>2018-10-11 15:04:10</td>
+      <td>1045194254118289424</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:04:10</td>
+    </tr>
+    <tr>
+      <th>26497</th>
+      <td>2018-10-11 15:04:20</td>
+      <td>918325721263243288</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:04:20</td>
+    </tr>
+    <tr>
+      <th>26506</th>
+      <td>2018-10-11 15:04:23</td>
+      <td>1045177954197307412</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:04:23</td>
+    </tr>
+    <tr>
+      <th>26592</th>
+      <td>2018-10-11 15:05:11</td>
+      <td>984973516220661780</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:05:11</td>
+    </tr>
+    <tr>
+      <th>26595</th>
+      <td>2018-10-11 15:05:12</td>
+      <td>1045193615275458580</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:05:12</td>
+    </tr>
+    <tr>
+      <th>26635</th>
+      <td>2018-10-11 15:05:38</td>
+      <td>1045195212986515476</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:05:38</td>
+    </tr>
+    <tr>
+      <th>26647</th>
+      <td>2018-10-11 15:05:47</td>
+      <td>1044696176558866456</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:05:47</td>
+    </tr>
+    <tr>
+      <th>26711</th>
+      <td>2018-10-11 15:06:25</td>
+      <td>1045195396697030676</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:06:25</td>
+    </tr>
+    <tr>
+      <th>26723</th>
+      <td>2018-10-11 15:06:31</td>
+      <td>1045195091704021016</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:06:31</td>
+    </tr>
+    <tr>
+      <th>26729</th>
+      <td>2018-10-11 15:06:34</td>
+      <td>1045187976553824280</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:06:34</td>
+    </tr>
+    <tr>
+      <th>26784</th>
+      <td>2018-10-11 15:07:07</td>
+      <td>1024471639150034960</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:07:07</td>
+    </tr>
+    <tr>
+      <th>26805</th>
+      <td>2018-10-11 15:07:24</td>
+      <td>1045196064354730004</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:07:24</td>
+    </tr>
+    <tr>
+      <th>26828</th>
+      <td>2018-10-11 15:07:38</td>
+      <td>993991213751205912</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:07:38</td>
+    </tr>
+    <tr>
+      <th>26877</th>
+      <td>2018-10-11 15:08:11</td>
+      <td>1045196245439610900</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:08:11</td>
+    </tr>
+    <tr>
+      <th>26966</th>
+      <td>2018-10-11 15:09:00</td>
+      <td>1045196905757278232</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:09:00</td>
+    </tr>
+    <tr>
+      <th>26969</th>
+      <td>2018-10-11 15:09:01</td>
+      <td>1036915249229332496</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:09:01</td>
+    </tr>
+    <tr>
+      <th>26981</th>
+      <td>2018-10-11 15:09:06</td>
+      <td>1045196503338975248</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:09:06</td>
+    </tr>
+    <tr>
+      <th>27176</th>
+      <td>2018-10-11 15:11:01</td>
+      <td>1045197859869163544</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:11:01</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>38646</th>
+      <td>2018-10-11 17:33:05</td>
+      <td>1045271154366873616</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:33:05</td>
+    </tr>
+    <tr>
+      <th>38725</th>
+      <td>2018-10-11 17:34:14</td>
+      <td>1030329777862475792</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:34:14</td>
+    </tr>
+    <tr>
+      <th>38779</th>
+      <td>2018-10-11 17:35:13</td>
+      <td>1045272158558748696</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:35:13</td>
+    </tr>
+    <tr>
+      <th>38877</th>
+      <td>2018-10-11 17:36:42</td>
+      <td>1045272842456793112</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:36:42</td>
+    </tr>
+    <tr>
+      <th>38887</th>
+      <td>2018-10-11 17:36:48</td>
+      <td>1042440848622485524</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:36:48</td>
+    </tr>
+    <tr>
+      <th>39016</th>
+      <td>2018-10-11 17:38:39</td>
+      <td>953400711675117584</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:38:39</td>
+    </tr>
+    <tr>
+      <th>39041</th>
+      <td>2018-10-11 17:39:21</td>
+      <td>1023826335790792724</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:39:21</td>
+    </tr>
+    <tr>
+      <th>39161</th>
+      <td>2018-10-11 17:40:56</td>
+      <td>1045204211362430992</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:40:56</td>
+    </tr>
+    <tr>
+      <th>39168</th>
+      <td>2018-10-11 17:41:01</td>
+      <td>920552266493067284</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:41:01</td>
+    </tr>
+    <tr>
+      <th>39191</th>
+      <td>2018-10-11 17:41:27</td>
+      <td>1045274948911763476</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:41:27</td>
+    </tr>
+    <tr>
+      <th>39199</th>
+      <td>2018-10-11 17:41:34</td>
+      <td>1045275580439724048</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:41:34</td>
+    </tr>
+    <tr>
+      <th>39246</th>
+      <td>2018-10-11 17:42:20</td>
+      <td>1033888630277406744</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:42:20</td>
+    </tr>
+    <tr>
+      <th>39419</th>
+      <td>2018-10-11 17:44:52</td>
+      <td>1036148564952088600</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:44:52</td>
+    </tr>
+    <tr>
+      <th>39436</th>
+      <td>2018-10-11 17:45:07</td>
+      <td>1045277360502345748</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:45:07</td>
+    </tr>
+    <tr>
+      <th>39551</th>
+      <td>2018-10-11 17:47:30</td>
+      <td>1028323902096408600</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:47:30</td>
+    </tr>
+    <tr>
+      <th>39571</th>
+      <td>2018-10-11 17:47:49</td>
+      <td>937852645085806612</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:47:49</td>
+    </tr>
+    <tr>
+      <th>39612</th>
+      <td>2018-10-11 17:48:21</td>
+      <td>962112710982500368</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:48:21</td>
+    </tr>
+    <tr>
+      <th>39734</th>
+      <td>2018-10-11 17:50:55</td>
+      <td>1042195461026349076</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:50:55</td>
+    </tr>
+    <tr>
+      <th>39742</th>
+      <td>2018-10-11 17:51:02</td>
+      <td>999915119762735124</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:51:02</td>
+    </tr>
+    <tr>
+      <th>39760</th>
+      <td>2018-10-11 17:51:15</td>
+      <td>1042282450606096408</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:51:15</td>
+    </tr>
+    <tr>
+      <th>39796</th>
+      <td>2018-10-11 17:51:52</td>
+      <td>1045048440649678864</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:51:52</td>
+    </tr>
+    <tr>
+      <th>39801</th>
+      <td>2018-10-11 17:51:55</td>
+      <td>1045280833872592916</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:51:55</td>
+    </tr>
+    <tr>
+      <th>39809</th>
+      <td>2018-10-11 17:51:59</td>
+      <td>1045280846665220116</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:51:59</td>
+    </tr>
+    <tr>
+      <th>39945</th>
+      <td>2018-10-11 17:54:35</td>
+      <td>1045282046471045140</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:54:35</td>
+    </tr>
+    <tr>
+      <th>40003</th>
+      <td>2018-10-11 17:55:30</td>
+      <td>1045022617259474960</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:55:30</td>
+    </tr>
+    <tr>
+      <th>40037</th>
+      <td>2018-10-11 17:56:02</td>
+      <td>1045282998804545556</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:56:02</td>
+    </tr>
+    <tr>
+      <th>40345</th>
+      <td>2018-10-11 17:58:54</td>
+      <td>1005963754887708688</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:58:54</td>
+    </tr>
+    <tr>
+      <th>40383</th>
+      <td>2018-10-11 17:59:24</td>
+      <td>1045284774270205972</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:59:24</td>
+    </tr>
+    <tr>
+      <th>40386</th>
+      <td>2018-10-11 17:59:28</td>
+      <td>1045238925913751572</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:59:28</td>
+    </tr>
+    <tr>
+      <th>40406</th>
+      <td>2018-10-11 17:59:48</td>
+      <td>1045284931355279376</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:59:48</td>
+    </tr>
+  </tbody>
+</table>
+<p>310 rows × 5 columns</p>
+</div>
+</div>
+
+</div>
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+
+
+<div class="output_text output_subarea ">
+<pre>&#39;%Y-%M-%D %I:%M%p&#39;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="&#29983;&#25104;&#39038;&#23458;&#23545;&#31995;&#32479;&#28040;&#24687;&#30340;&#22238;&#22797;">&#29983;&#25104;&#39038;&#23458;&#23545;&#31995;&#32479;&#28040;&#24687;&#30340;&#22238;&#22797;<a class="anchor-link" href="#&#29983;&#25104;&#39038;&#23458;&#23545;&#31995;&#32479;&#28040;&#24687;&#30340;&#22238;&#22797;">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">combine_chat_content</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">temp</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
+        <span class="n">temp</span> <span class="o">+=</span> <span class="n">i</span><span class="o">+</span><span class="s1">&#39;;&#39;</span>
+    <span class="k">return</span> <span class="n">temp</span>
+<span class="k">def</span> <span class="nf">find_costomer_reply</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;目的是找到客人在客服回复前对系统消息作出的回复内容&#39;&#39;&#39;</span>
+    <span class="n">temp_df</span> <span class="o">=</span> <span class="n">data_modify</span><span class="p">[</span><span class="n">data_modify</span><span class="p">[</span><span class="s1">&#39;群ID&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">x</span><span class="p">]</span>
+    <span class="n">target_content_time</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">temp_df</span><span class="p">[</span><span class="n">temp_df</span><span class="p">[</span><span class="s1">&#39;chat_content&#39;</span><span class="p">]</span>\
+                                               <span class="o">==</span> <span class="n">target_content</span><span class="p">][</span><span class="s1">&#39;发言时间&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="c1"># 找到系统消息发送的时间</span>
+    <span class="n">temp_df</span> <span class="o">=</span> <span class="n">temp_df</span><span class="p">[</span><span class="n">temp_df</span><span class="p">[</span><span class="s1">&#39;发言时间_time&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">target_content_time</span><span class="p">]</span>
+    <span class="n">reply_type</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">temp_df</span><span class="p">[</span><span class="s1">&#39;回复类型&#39;</span><span class="p">])</span>
+    <span class="k">if</span> <span class="s1">&#39;客人回复&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">reply_type</span><span class="p">:</span>  <span class="c1">#如果客人没有任何回复，那么其内容就是none</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">elif</span> <span class="s1">&#39;签证客服回复&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">reply_type</span><span class="p">:</span>  <span class="c1"># 如果对话中没有客服回复那么该客人的所有话都会被收集</span>
+        <span class="k">return</span> <span class="n">combine_chat_content</span><span class="p">(</span><span class="n">temp_df</span><span class="p">[</span><span class="n">temp_df</span><span class="p">[</span><span class="s1">&#39;回复类型&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;客人回复&#39;</span><span class="p">])</span>
+    <span class="k">elif</span> <span class="s1">&#39;签证客服回复&#39;</span> <span class="ow">in</span> <span class="n">reply_type</span><span class="p">:</span> <span class="c1"># 如果有客服回复介入，那么就只提取客服回复介入前的客人回复内容</span>
+        <span class="n">service_content_time</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">temp_df</span><span class="p">[</span><span class="n">temp_df</span><span class="p">[</span><span class="s1">&#39;回复类型&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;签证客服回复&#39;</span><span class="p">][</span><span class="s1">&#39;发言时间&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">temp_df</span><span class="p">[</span><span class="n">temp_df</span><span class="p">[</span><span class="s1">&#39;发言时间_time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">between</span><span class="p">(</span><span class="n">target_content_time</span><span class="p">,</span><span class="n">service_content_time</span><span class="p">)]</span><span class="c1"># 找到系统消息和客服消息之间的全部消息</span>
+        <span class="k">if</span> <span class="s1">&#39;客人回复&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;回复类型&#39;</span><span class="p">]):</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">combine_chat_content</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;回复类型&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;客人回复&#39;</span><span class="p">][</span><span class="s1">&#39;chat_content&#39;</span><span class="p">])</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[31]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data_target_content</span><span class="p">[</span><span class="s1">&#39;customer_reply&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_target_content</span><span class="p">[</span><span class="s1">&#39;群ID&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">find_costomer_reply</span><span class="p">(</span><span class="n">x</span><span class="p">))</span> 
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>C:\ProgramData\Anaconda3\lib\site-packages\ipykernel_launcher.py:1: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+  &#34;&#34;&#34;Entry point for launching an IPython kernel.
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[32]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data_target_content</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[32]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>发言时间</th>
+      <th>群ID</th>
+      <th>chat_content</th>
+      <th>回复类型</th>
+      <th>发言时间_time</th>
+      <th>customer_reply</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>26029</th>
+      <td>2018-10-11 15:00:05</td>
+      <td>1045192255968641044</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:00:05</td>
+      <td>常驻地，重庆;出行时间19年2月，可以提前咨询吗;</td>
+    </tr>
+    <tr>
+      <th>26075</th>
+      <td>2018-10-11 15:00:30</td>
+      <td>1045192536819236884</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:00:30</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>26108</th>
+      <td>2018-10-11 15:00:47</td>
+      <td>1028848177060511760</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:00:47</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>26160</th>
+      <td>2018-10-11 15:01:23</td>
+      <td>1031892048778625044</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:01:23</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>26174</th>
+      <td>2018-10-11 15:01:29</td>
+      <td>1045192831276154900</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:01:29</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>26224</th>
+      <td>2018-10-11 15:01:56</td>
+      <td>1045193128518090768</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:01:56</td>
+      <td>广州;</td>
+    </tr>
+    <tr>
+      <th>26279</th>
+      <td>2018-10-11 15:02:22</td>
+      <td>989702329739509776</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:02:22</td>
+      <td>12月初;</td>
+    </tr>
+    <tr>
+      <th>26423</th>
+      <td>2018-10-11 15:03:37</td>
+      <td>987464280473337880</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:03:37</td>
+      <td>这个冰岛签证;</td>
+    </tr>
+    <tr>
+      <th>26429</th>
+      <td>2018-10-11 15:03:41</td>
+      <td>1045193965810221072</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:03:41</td>
+      <td>广东 10.26出发;</td>
+    </tr>
+    <tr>
+      <th>26431</th>
+      <td>2018-10-11 15:03:42</td>
+      <td>1045134520166121492</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:03:42</td>
+      <td>土耳其;浙江杭州;</td>
+    </tr>
+    <tr>
+      <th>26447</th>
+      <td>2018-10-11 15:03:47</td>
+      <td>975321650176196624</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:03:47</td>
+      <td>我换了新护照;美国10年的，需要办电子签证吗？;</td>
+    </tr>
+    <tr>
+      <th>26485</th>
+      <td>2018-10-11 15:04:10</td>
+      <td>1016997100082167828</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:04:10</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>26486</th>
+      <td>2018-10-11 15:04:10</td>
+      <td>1045194254118289424</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:04:10</td>
+      <td>你好;现在去泰国是否免签证;</td>
+    </tr>
+    <tr>
+      <th>26497</th>
+      <td>2018-10-11 15:04:20</td>
+      <td>918325721263243288</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:04:20</td>
+      <td>常住上海，预计11月下旬出游;请问其他材里面的的内容需要全部提供？;</td>
+    </tr>
+    <tr>
+      <th>26506</th>
+      <td>2018-10-11 15:04:23</td>
+      <td>1045177954197307412</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:04:23</td>
+      <td>你好;常住地山东;预计一月中旬出行;</td>
+    </tr>
+    <tr>
+      <th>26592</th>
+      <td>2018-10-11 15:05:11</td>
+      <td>984973516220661780</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:05:11</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>26595</th>
+      <td>2018-10-11 15:05:12</td>
+      <td>1045193615275458580</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:05:12</td>
+      <td>郑州，时间无所谓，不急;</td>
+    </tr>
+    <tr>
+      <th>26635</th>
+      <td>2018-10-11 15:05:38</td>
+      <td>1045195212986515476</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:05:38</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>26647</th>
+      <td>2018-10-11 15:05:47</td>
+      <td>1044696176558866456</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:05:47</td>
+      <td>我想办理多年多次往返得韩国签证;</td>
+    </tr>
+    <tr>
+      <th>26711</th>
+      <td>2018-10-11 15:06:25</td>
+      <td>1045195396697030676</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:06:25</td>
+      <td>常驻地辽宁抚顺;</td>
+    </tr>
+    <tr>
+      <th>26723</th>
+      <td>2018-10-11 15:06:31</td>
+      <td>1045195091704021016</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:06:31</td>
+      <td>福建福州;</td>
+    </tr>
+    <tr>
+      <th>26729</th>
+      <td>2018-10-11 15:06:34</td>
+      <td>1045187976553824280</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:06:34</td>
+      <td>您好，我想办日本个人签证，我想咨询一下在职和退休人员都需要些什么材料;是自由行旅游的;</td>
+    </tr>
+    <tr>
+      <th>26784</th>
+      <td>2018-10-11 15:07:07</td>
+      <td>1024471639150034960</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:07:07</td>
+      <td>广州;11月25日;</td>
+    </tr>
+    <tr>
+      <th>26805</th>
+      <td>2018-10-11 15:07:24</td>
+      <td>1045196064354730004</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:07:24</td>
+      <td>上海，2019/1/30;</td>
+    </tr>
+    <tr>
+      <th>26828</th>
+      <td>2018-10-11 15:07:38</td>
+      <td>993991213751205912</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:07:38</td>
+      <td>您好;北京，预计11月上旬出行;</td>
+    </tr>
+    <tr>
+      <th>26877</th>
+      <td>2018-10-11 15:08:11</td>
+      <td>1045196245439610900</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:08:11</td>
+      <td>常住地  江西;</td>
+    </tr>
+    <tr>
+      <th>26966</th>
+      <td>2018-10-11 15:09:00</td>
+      <td>1045196905757278232</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:09:00</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>26969</th>
+      <td>2018-10-11 15:09:01</td>
+      <td>1036915249229332496</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:09:01</td>
+      <td>问一下，夫妻申请日本签证，需要都提供银行流水么？;</td>
+    </tr>
+    <tr>
+      <th>26981</th>
+      <td>2018-10-11 15:09:06</td>
+      <td>1045196503338975248</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:09:06</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>27176</th>
+      <td>2018-10-11 15:11:01</td>
+      <td>1045197859869163544</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:11:01</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>38646</th>
+      <td>2018-10-11 17:33:05</td>
+      <td>1045271154366873616</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:33:05</td>
+      <td>北京;我想申请商务签证;</td>
+    </tr>
+    <tr>
+      <th>38725</th>
+      <td>2018-10-11 17:34:14</td>
+      <td>1030329777862475792</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:34:14</td>
+      <td>11月6号;</td>
+    </tr>
+    <tr>
+      <th>38779</th>
+      <td>2018-10-11 17:35:13</td>
+      <td>1045272158558748696</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:35:13</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>38877</th>
+      <td>2018-10-11 17:36:42</td>
+      <td>1045272842456793112</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:36:42</td>
+      <td>上海  10.30;不过之前申请过一次电子签 被拒签了;</td>
+    </tr>
+    <tr>
+      <th>38887</th>
+      <td>2018-10-11 17:36:48</td>
+      <td>1042440848622485524</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:36:48</td>
+      <td>亲，为啥12月18就要截止收材料;</td>
+    </tr>
+    <tr>
+      <th>39016</th>
+      <td>2018-10-11 17:38:39</td>
+      <td>953400711675117584</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:38:39</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>39041</th>
+      <td>2018-10-11 17:39:21</td>
+      <td>1023826335790792724</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:39:21</td>
+      <td>您好;</td>
+    </tr>
+    <tr>
+      <th>39161</th>
+      <td>2018-10-11 17:40:56</td>
+      <td>1045204211362430992</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:40:56</td>
+      <td>在吗;日本签证;上海;</td>
+    </tr>
+    <tr>
+      <th>39168</th>
+      <td>2018-10-11 17:41:01</td>
+      <td>920552266493067284</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:41:01</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>39191</th>
+      <td>2018-10-11 17:41:27</td>
+      <td>1045274948911763476</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:41:27</td>
+      <td>广州，12月22日左右;</td>
+    </tr>
+    <tr>
+      <th>39199</th>
+      <td>2018-10-11 17:41:34</td>
+      <td>1045275580439724048</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:41:34</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>39246</th>
+      <td>2018-10-11 17:42:20</td>
+      <td>1033888630277406744</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:42:20</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>39419</th>
+      <td>2018-10-11 17:44:52</td>
+      <td>1036148564952088600</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:44:52</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>39436</th>
+      <td>2018-10-11 17:45:07</td>
+      <td>1045277360502345748</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:45:07</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>39551</th>
+      <td>2018-10-11 17:47:30</td>
+      <td>1028323902096408600</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:47:30</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>39571</th>
+      <td>2018-10-11 17:47:49</td>
+      <td>937852645085806612</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:47:49</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>39612</th>
+      <td>2018-10-11 17:48:21</td>
+      <td>962112710982500368</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:48:21</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>39734</th>
+      <td>2018-10-11 17:50:55</td>
+      <td>1042195461026349076</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:50:55</td>
+      <td>在吗;订单名字不对;是黄金荣跟王延娟;</td>
+    </tr>
+    <tr>
+      <th>39742</th>
+      <td>2018-10-11 17:51:02</td>
+      <td>999915119762735124</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:51:02</td>
+      <td>上海;出发时间11月 10日;</td>
+    </tr>
+    <tr>
+      <th>39760</th>
+      <td>2018-10-11 17:51:15</td>
+      <td>1042282450606096408</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:51:15</td>
+      <td>11.8;</td>
+    </tr>
+    <tr>
+      <th>39796</th>
+      <td>2018-10-11 17:51:52</td>
+      <td>1045048440649678864</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:51:52</td>
+      <td>河北户口也没问题哈;</td>
+    </tr>
+    <tr>
+      <th>39801</th>
+      <td>2018-10-11 17:51:55</td>
+      <td>1045280833872592916</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:51:55</td>
+      <td>在吗;</td>
+    </tr>
+    <tr>
+      <th>39809</th>
+      <td>2018-10-11 17:51:59</td>
+      <td>1045280846665220116</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:51:59</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>39945</th>
+      <td>2018-10-11 17:54:35</td>
+      <td>1045282046471045140</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:54:35</td>
+      <td>12月8日;居住上海;</td>
+    </tr>
+    <tr>
+      <th>40003</th>
+      <td>2018-10-11 17:55:30</td>
+      <td>1045022617259474960</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:55:30</td>
+      <td>上海;11/18;英国签证需要提供机票酒店订单吗？;</td>
+    </tr>
+    <tr>
+      <th>40037</th>
+      <td>2018-10-11 17:56:02</td>
+      <td>1045282998804545556</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:56:02</td>
+      <td>你好;</td>
+    </tr>
+    <tr>
+      <th>40345</th>
+      <td>2018-10-11 17:58:54</td>
+      <td>1005963754887708688</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:58:54</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>40383</th>
+      <td>2018-10-11 17:59:24</td>
+      <td>1045284774270205972</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:59:24</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>40386</th>
+      <td>2018-10-11 17:59:28</td>
+      <td>1045238925913751572</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:59:28</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>40406</th>
+      <td>2018-10-11 17:59:48</td>
+      <td>1045284931355279376</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:59:48</td>
+      <td>None</td>
+    </tr>
+  </tbody>
+</table>
+<p>310 rows × 6 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="&#23545;customer_reply&#36827;&#34892;&#20998;&#26512;&#25286;&#35299;">&#23545;customer_reply&#36827;&#34892;&#20998;&#26512;&#25286;&#35299;<a class="anchor-link" href="#&#23545;customer_reply&#36827;&#34892;&#20998;&#26512;&#25286;&#35299;">&#182;</a></h3><p>类别说明：<br>
+将根据顾客的回复生成一个logic列，该列取值的说明如下：<br></p>
+<ul>
+<li>Null: 说明该顾客没有回复</li>
+<li>Others: 表示该客人的回复中不包括地址或日期</li>
+<li>City:说明该顾客的回答中包含了地名</li>
+<li>Date: 说明该顾客的回答中包含了日期</li>
+<li>City &amp; Date: 说明该顾客的回答中包含了地名和日期</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[116]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 城市list</span>
+<span class="c1"># 需要在这个地方添加城市名和日期</span>
+<span class="n">city_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;重庆&#39;</span><span class="p">,</span><span class="s1">&#39;福建&#39;</span><span class="p">,</span><span class="s1">&#39;福州&#39;</span><span class="p">,</span><span class="s1">&#39;广州&#39;</span><span class="p">,</span><span class="s1">&#39;辽宁&#39;</span><span class="p">,</span><span class="s1">&#39;江西&#39;</span><span class="p">,</span><span class="s1">&#39;北京&#39;</span><span class="p">,</span><span class="s1">&#39;上海&#39;</span><span class="p">,</span><span class="s1">&#39;杭州&#39;</span><span class="p">,</span><span class="s1">&#39;浙江&#39;</span><span class="p">,</span><span class="s1">&#39;美国&#39;</span><span class="p">,</span><span class="s1">&#39;郑州&#39;</span><span class="p">]</span>
+<span class="n">key_words_city</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;常驻&#39;</span><span class="p">,</span><span class="s1">&#39;常住&#39;</span><span class="p">]</span>
+<span class="n">date_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;月&#39;</span><span class="p">,</span><span class="s1">&#39;日&#39;</span><span class="p">,</span><span class="s1">&#39;一月&#39;</span><span class="p">,</span><span class="s1">&#39;号&#39;</span><span class="p">,</span><span class="s1">&#39;年&#39;</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[112]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">check_chat_content</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;用于判断客人的回复是否是我们想要的结果，并且将其分为几类&#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;Null&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">jieba</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+            <span class="n">content</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="c1"># next we need to test if city name or date info. is in the chat_content</span>
+        <span class="n">date</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span><span class="n">x</span> <span class="ow">in</span> <span class="n">date_list</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">content</span><span class="p">)</span>
+        <span class="n">city</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span><span class="n">x</span> <span class="ow">in</span> <span class="n">city_list</span><span class="o">+</span><span class="n">key_words_city</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">content</span><span class="p">)</span> 
+        <span class="k">if</span> <span class="p">(</span><span class="n">date</span><span class="o">==</span><span class="kc">True</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">city</span> <span class="o">==</span> <span class="kc">False</span><span class="p">):</span>
+            <span class="k">return</span> <span class="s1">&#39;Date&#39;</span>
+        <span class="k">elif</span> <span class="p">(</span><span class="n">city</span> <span class="o">==</span> <span class="kc">True</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">date</span> <span class="o">==</span> <span class="kc">False</span><span class="p">):</span>
+            <span class="k">return</span> <span class="s1">&#39;city&#39;</span>
+        <span class="k">elif</span> <span class="p">(</span><span class="n">city</span> <span class="o">==</span> <span class="kc">True</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">date</span> <span class="o">==</span> <span class="kc">True</span><span class="p">):</span>
+            <span class="k">return</span> <span class="s1">&#39;City &amp; Date&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;Others&#39;</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[117]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data_target_content</span><span class="p">[</span><span class="s1">&#39;logic&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_target_content</span><span class="p">[</span><span class="s1">&#39;customer_reply&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">check_chat_content</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>C:\ProgramData\Anaconda3\lib\site-packages\ipykernel_launcher.py:1: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+  &#34;&#34;&#34;Entry point for launching an IPython kernel.
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[118]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">check_chat_content</span><span class="p">(</span><span class="n">data_target_content</span><span class="o">.</span><span class="n">ix</span><span class="p">[</span><span class="mi">39801</span><span class="p">][</span><span class="s1">&#39;customer_reply&#39;</span><span class="p">])</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>C:\ProgramData\Anaconda3\lib\site-packages\ipykernel_launcher.py:1: DeprecationWarning: 
+.ix is deprecated. Please use
+.loc for label based indexing or
+.iloc for positional indexing
+
+See the documentation here:
+http://pandas.pydata.org/pandas-docs/stable/indexing.html#ix-indexer-is-deprecated
+  &#34;&#34;&#34;Entry point for launching an IPython kernel.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[118]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&#39;Others&#39;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[119]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data_target_content</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[119]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>发言时间</th>
+      <th>群ID</th>
+      <th>chat_content</th>
+      <th>回复类型</th>
+      <th>发言时间_time</th>
+      <th>customer_reply</th>
+      <th>logic</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>26029</th>
+      <td>2018-10-11 15:00:05</td>
+      <td>1045192255968641044</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:00:05</td>
+      <td>常驻地，重庆;出行时间19年2月，可以提前咨询吗;</td>
+      <td>City &amp; Date</td>
+    </tr>
+    <tr>
+      <th>26075</th>
+      <td>2018-10-11 15:00:30</td>
+      <td>1045192536819236884</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:00:30</td>
+      <td>None</td>
+      <td>Null</td>
+    </tr>
+    <tr>
+      <th>26108</th>
+      <td>2018-10-11 15:00:47</td>
+      <td>1028848177060511760</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:00:47</td>
+      <td>None</td>
+      <td>Null</td>
+    </tr>
+    <tr>
+      <th>26160</th>
+      <td>2018-10-11 15:01:23</td>
+      <td>1031892048778625044</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:01:23</td>
+      <td>None</td>
+      <td>Null</td>
+    </tr>
+    <tr>
+      <th>26174</th>
+      <td>2018-10-11 15:01:29</td>
+      <td>1045192831276154900</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:01:29</td>
+      <td>None</td>
+      <td>Null</td>
+    </tr>
+    <tr>
+      <th>26224</th>
+      <td>2018-10-11 15:01:56</td>
+      <td>1045193128518090768</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:01:56</td>
+      <td>广州;</td>
+      <td>city</td>
+    </tr>
+    <tr>
+      <th>26279</th>
+      <td>2018-10-11 15:02:22</td>
+      <td>989702329739509776</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:02:22</td>
+      <td>12月初;</td>
+      <td>Others</td>
+    </tr>
+    <tr>
+      <th>26423</th>
+      <td>2018-10-11 15:03:37</td>
+      <td>987464280473337880</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:03:37</td>
+      <td>这个冰岛签证;</td>
+      <td>Others</td>
+    </tr>
+    <tr>
+      <th>26429</th>
+      <td>2018-10-11 15:03:41</td>
+      <td>1045193965810221072</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:03:41</td>
+      <td>广东 10.26出发;</td>
+      <td>Others</td>
+    </tr>
+    <tr>
+      <th>26431</th>
+      <td>2018-10-11 15:03:42</td>
+      <td>1045134520166121492</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:03:42</td>
+      <td>土耳其;浙江杭州;</td>
+      <td>city</td>
+    </tr>
+    <tr>
+      <th>26447</th>
+      <td>2018-10-11 15:03:47</td>
+      <td>975321650176196624</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:03:47</td>
+      <td>我换了新护照;美国10年的，需要办电子签证吗？;</td>
+      <td>City &amp; Date</td>
+    </tr>
+    <tr>
+      <th>26485</th>
+      <td>2018-10-11 15:04:10</td>
+      <td>1016997100082167828</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:04:10</td>
+      <td>None</td>
+      <td>Null</td>
+    </tr>
+    <tr>
+      <th>26486</th>
+      <td>2018-10-11 15:04:10</td>
+      <td>1045194254118289424</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:04:10</td>
+      <td>你好;现在去泰国是否免签证;</td>
+      <td>Others</td>
+    </tr>
+    <tr>
+      <th>26497</th>
+      <td>2018-10-11 15:04:20</td>
+      <td>918325721263243288</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:04:20</td>
+      <td>常住上海，预计11月下旬出游;请问其他材里面的的内容需要全部提供？;</td>
+      <td>City &amp; Date</td>
+    </tr>
+    <tr>
+      <th>26506</th>
+      <td>2018-10-11 15:04:23</td>
+      <td>1045177954197307412</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:04:23</td>
+      <td>你好;常住地山东;预计一月中旬出行;</td>
+      <td>City &amp; Date</td>
+    </tr>
+    <tr>
+      <th>26592</th>
+      <td>2018-10-11 15:05:11</td>
+      <td>984973516220661780</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:05:11</td>
+      <td>None</td>
+      <td>Null</td>
+    </tr>
+    <tr>
+      <th>26595</th>
+      <td>2018-10-11 15:05:12</td>
+      <td>1045193615275458580</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:05:12</td>
+      <td>郑州，时间无所谓，不急;</td>
+      <td>city</td>
+    </tr>
+    <tr>
+      <th>26635</th>
+      <td>2018-10-11 15:05:38</td>
+      <td>1045195212986515476</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:05:38</td>
+      <td>None</td>
+      <td>Null</td>
+    </tr>
+    <tr>
+      <th>26647</th>
+      <td>2018-10-11 15:05:47</td>
+      <td>1044696176558866456</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:05:47</td>
+      <td>我想办理多年多次往返得韩国签证;</td>
+      <td>Others</td>
+    </tr>
+    <tr>
+      <th>26711</th>
+      <td>2018-10-11 15:06:25</td>
+      <td>1045195396697030676</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:06:25</td>
+      <td>常驻地辽宁抚顺;</td>
+      <td>city</td>
+    </tr>
+    <tr>
+      <th>26723</th>
+      <td>2018-10-11 15:06:31</td>
+      <td>1045195091704021016</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:06:31</td>
+      <td>福建福州;</td>
+      <td>city</td>
+    </tr>
+    <tr>
+      <th>26729</th>
+      <td>2018-10-11 15:06:34</td>
+      <td>1045187976553824280</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:06:34</td>
+      <td>您好，我想办日本个人签证，我想咨询一下在职和退休人员都需要些什么材料;是自由行旅游的;</td>
+      <td>Others</td>
+    </tr>
+    <tr>
+      <th>26784</th>
+      <td>2018-10-11 15:07:07</td>
+      <td>1024471639150034960</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:07:07</td>
+      <td>广州;11月25日;</td>
+      <td>City &amp; Date</td>
+    </tr>
+    <tr>
+      <th>26805</th>
+      <td>2018-10-11 15:07:24</td>
+      <td>1045196064354730004</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:07:24</td>
+      <td>上海，2019/1/30;</td>
+      <td>city</td>
+    </tr>
+    <tr>
+      <th>26828</th>
+      <td>2018-10-11 15:07:38</td>
+      <td>993991213751205912</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:07:38</td>
+      <td>您好;北京，预计11月上旬出行;</td>
+      <td>City &amp; Date</td>
+    </tr>
+    <tr>
+      <th>26877</th>
+      <td>2018-10-11 15:08:11</td>
+      <td>1045196245439610900</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:08:11</td>
+      <td>常住地  江西;</td>
+      <td>city</td>
+    </tr>
+    <tr>
+      <th>26966</th>
+      <td>2018-10-11 15:09:00</td>
+      <td>1045196905757278232</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:09:00</td>
+      <td>None</td>
+      <td>Null</td>
+    </tr>
+    <tr>
+      <th>26969</th>
+      <td>2018-10-11 15:09:01</td>
+      <td>1036915249229332496</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:09:01</td>
+      <td>问一下，夫妻申请日本签证，需要都提供银行流水么？;</td>
+      <td>Others</td>
+    </tr>
+    <tr>
+      <th>26981</th>
+      <td>2018-10-11 15:09:06</td>
+      <td>1045196503338975248</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:09:06</td>
+      <td>None</td>
+      <td>Null</td>
+    </tr>
+    <tr>
+      <th>27176</th>
+      <td>2018-10-11 15:11:01</td>
+      <td>1045197859869163544</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 15:11:01</td>
+      <td>None</td>
+      <td>Null</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>38646</th>
+      <td>2018-10-11 17:33:05</td>
+      <td>1045271154366873616</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:33:05</td>
+      <td>北京;我想申请商务签证;</td>
+      <td>city</td>
+    </tr>
+    <tr>
+      <th>38725</th>
+      <td>2018-10-11 17:34:14</td>
+      <td>1030329777862475792</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:34:14</td>
+      <td>11月6号;</td>
+      <td>Date</td>
+    </tr>
+    <tr>
+      <th>38779</th>
+      <td>2018-10-11 17:35:13</td>
+      <td>1045272158558748696</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:35:13</td>
+      <td>None</td>
+      <td>Null</td>
+    </tr>
+    <tr>
+      <th>38877</th>
+      <td>2018-10-11 17:36:42</td>
+      <td>1045272842456793112</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:36:42</td>
+      <td>上海  10.30;不过之前申请过一次电子签 被拒签了;</td>
+      <td>city</td>
+    </tr>
+    <tr>
+      <th>38887</th>
+      <td>2018-10-11 17:36:48</td>
+      <td>1042440848622485524</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:36:48</td>
+      <td>亲，为啥12月18就要截止收材料;</td>
+      <td>Date</td>
+    </tr>
+    <tr>
+      <th>39016</th>
+      <td>2018-10-11 17:38:39</td>
+      <td>953400711675117584</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:38:39</td>
+      <td>None</td>
+      <td>Null</td>
+    </tr>
+    <tr>
+      <th>39041</th>
+      <td>2018-10-11 17:39:21</td>
+      <td>1023826335790792724</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:39:21</td>
+      <td>您好;</td>
+      <td>Others</td>
+    </tr>
+    <tr>
+      <th>39161</th>
+      <td>2018-10-11 17:40:56</td>
+      <td>1045204211362430992</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:40:56</td>
+      <td>在吗;日本签证;上海;</td>
+      <td>city</td>
+    </tr>
+    <tr>
+      <th>39168</th>
+      <td>2018-10-11 17:41:01</td>
+      <td>920552266493067284</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:41:01</td>
+      <td>None</td>
+      <td>Null</td>
+    </tr>
+    <tr>
+      <th>39191</th>
+      <td>2018-10-11 17:41:27</td>
+      <td>1045274948911763476</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:41:27</td>
+      <td>广州，12月22日左右;</td>
+      <td>City &amp; Date</td>
+    </tr>
+    <tr>
+      <th>39199</th>
+      <td>2018-10-11 17:41:34</td>
+      <td>1045275580439724048</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:41:34</td>
+      <td>None</td>
+      <td>Null</td>
+    </tr>
+    <tr>
+      <th>39246</th>
+      <td>2018-10-11 17:42:20</td>
+      <td>1033888630277406744</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:42:20</td>
+      <td>None</td>
+      <td>Null</td>
+    </tr>
+    <tr>
+      <th>39419</th>
+      <td>2018-10-11 17:44:52</td>
+      <td>1036148564952088600</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:44:52</td>
+      <td>None</td>
+      <td>Null</td>
+    </tr>
+    <tr>
+      <th>39436</th>
+      <td>2018-10-11 17:45:07</td>
+      <td>1045277360502345748</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:45:07</td>
+      <td>None</td>
+      <td>Null</td>
+    </tr>
+    <tr>
+      <th>39551</th>
+      <td>2018-10-11 17:47:30</td>
+      <td>1028323902096408600</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:47:30</td>
+      <td>None</td>
+      <td>Null</td>
+    </tr>
+    <tr>
+      <th>39571</th>
+      <td>2018-10-11 17:47:49</td>
+      <td>937852645085806612</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:47:49</td>
+      <td>None</td>
+      <td>Null</td>
+    </tr>
+    <tr>
+      <th>39612</th>
+      <td>2018-10-11 17:48:21</td>
+      <td>962112710982500368</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:48:21</td>
+      <td>None</td>
+      <td>Null</td>
+    </tr>
+    <tr>
+      <th>39734</th>
+      <td>2018-10-11 17:50:55</td>
+      <td>1042195461026349076</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:50:55</td>
+      <td>在吗;订单名字不对;是黄金荣跟王延娟;</td>
+      <td>Others</td>
+    </tr>
+    <tr>
+      <th>39742</th>
+      <td>2018-10-11 17:51:02</td>
+      <td>999915119762735124</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:51:02</td>
+      <td>上海;出发时间11月 10日;</td>
+      <td>City &amp; Date</td>
+    </tr>
+    <tr>
+      <th>39760</th>
+      <td>2018-10-11 17:51:15</td>
+      <td>1042282450606096408</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:51:15</td>
+      <td>11.8;</td>
+      <td>Others</td>
+    </tr>
+    <tr>
+      <th>39796</th>
+      <td>2018-10-11 17:51:52</td>
+      <td>1045048440649678864</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:51:52</td>
+      <td>河北户口也没问题哈;</td>
+      <td>Others</td>
+    </tr>
+    <tr>
+      <th>39801</th>
+      <td>2018-10-11 17:51:55</td>
+      <td>1045280833872592916</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:51:55</td>
+      <td>在吗;</td>
+      <td>Others</td>
+    </tr>
+    <tr>
+      <th>39809</th>
+      <td>2018-10-11 17:51:59</td>
+      <td>1045280846665220116</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:51:59</td>
+      <td>None</td>
+      <td>Null</td>
+    </tr>
+    <tr>
+      <th>39945</th>
+      <td>2018-10-11 17:54:35</td>
+      <td>1045282046471045140</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:54:35</td>
+      <td>12月8日;居住上海;</td>
+      <td>City &amp; Date</td>
+    </tr>
+    <tr>
+      <th>40003</th>
+      <td>2018-10-11 17:55:30</td>
+      <td>1045022617259474960</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:55:30</td>
+      <td>上海;11/18;英国签证需要提供机票酒店订单吗？;</td>
+      <td>city</td>
+    </tr>
+    <tr>
+      <th>40037</th>
+      <td>2018-10-11 17:56:02</td>
+      <td>1045282998804545556</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:56:02</td>
+      <td>你好;</td>
+      <td>Others</td>
+    </tr>
+    <tr>
+      <th>40345</th>
+      <td>2018-10-11 17:58:54</td>
+      <td>1005963754887708688</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:58:54</td>
+      <td>None</td>
+      <td>Null</td>
+    </tr>
+    <tr>
+      <th>40383</th>
+      <td>2018-10-11 17:59:24</td>
+      <td>1045284774270205972</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:59:24</td>
+      <td>None</td>
+      <td>Null</td>
+    </tr>
+    <tr>
+      <th>40386</th>
+      <td>2018-10-11 17:59:28</td>
+      <td>1045238925913751572</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:59:28</td>
+      <td>None</td>
+      <td>Null</td>
+    </tr>
+    <tr>
+      <th>40406</th>
+      <td>2018-10-11 17:59:48</td>
+      <td>1045284931355279376</td>
+      <td>您好，为了更好的解答您的问题和推荐产品，请先告知下您的常住地以及预计出行的时间？</td>
+      <td>系统回复</td>
+      <td>2018-10-11 17:59:48</td>
+      <td>None</td>
+      <td>Null</td>
+    </tr>
+  </tbody>
+</table>
+<p>310 rows × 7 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[120]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 最终的结果</span>
+<span class="n">data_target_content</span><span class="p">[</span><span class="s1">&#39;logic&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[120]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Null           118
+Others          95
+city            47
+City &amp; Date     31
+Date            19
+Name: logic, dtype: int64</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+ 
+
+
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: 'center'," +
+        "    displayIndent: '0em'," +
+        "    showMathMenu: true," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['$','$'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        " linebreaks: { automatic: true, width: '95% container' }, " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'black ! important'} }" +
+        "    } " +
+        "}); ";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+                </article>
+            </aside><!-- /#featured -->
+                <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/osm-data-cleaning-project.html" rel="bookmark"
+                           title="Permalink to Report on OpenStreetMap Data Cleaning Project">Report on OpenStreetMap Data Cleaning Project</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <span>周五 28 九月 2018</span>
+<span>| tags: <a href="/tag/data-cleaning.html">Data cleaning</a></span>
+</footer><!-- /.post-info -->                <p>My first post, read it to find out.</p>
+                <a class="readmore" href="/osm-data-cleaning-project.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/test_analysis_file.html" rel="bookmark"
+                           title="Permalink to test file">test file</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <span>周五 28 九月 2018</span>
+<span>| tags: <a href="/tag/data-cleaning.html">Data cleaning</a></span>
+</footer><!-- /.post-info -->                <p>My first post, read it to find out.</p>
+                <a class="readmore" href="/test_analysis_file.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+            </ol><!-- /#posts-list -->
+<p class="paginator">
+    Page 1 / 1
+</p>
+            </section><!-- /#content -->
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>blogroll</h2>
+                        <ul>
+                            <li><a href="http://getpelican.com/">Pelican</a></li>
+                            <li><a href="http://python.org/">Python.org</a></li>
+                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+                            <li><a href="#">You can modify those links in your config file</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+
+                            <li><a href="#">You can add links in your config file</a></li>
+                            <li><a href="#">Another social link</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <p>Powered by <a href="http://getpelican.com/">Pelican</a>. Theme <a href="https://github.com/blueicefield/pelican-blueidea/">blueidea</a>, inspired by the default theme.</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>
