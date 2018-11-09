@@ -54,8 +54,8 @@
 					<ul class="off-canvas-list">
 						<li><a href="http://bangshen.github.io">Home</a></li>
 						<li><label>Categories</label></li>
-							<li class="active"><a href="http://bangshen.github.io/category/data-cleaning.html">Data cleaning</a></li>
-							<li ><a href="http://bangshen.github.io/category/statistics.html">Statistics</a></li>
+							<li ><a href="http://bangshen.github.io/category/data-cleaning.html">Data cleaning</a></li>
+							<li class="active"><a href="http://bangshen.github.io/category/statistics.html">Statistics</a></li>
 
 						<li><label>Links</label></li>
 							<li><a href="http://getpelican.com/">Pelican</a></li>
@@ -80,8 +80,8 @@
 
 					<section class="top-bar-section">
 						<ul class="left">
-								<li class="active"><a href="http://bangshen.github.io/category/data-cleaning.html">Data cleaning</a></li>
-								<li ><a href="http://bangshen.github.io/category/statistics.html">Statistics</a></li>
+								<li ><a href="http://bangshen.github.io/category/data-cleaning.html">Data cleaning</a></li>
+								<li class="active"><a href="http://bangshen.github.io/category/statistics.html">Statistics</a></li>
 						</ul>
                         <ul class="right">                                                                                                                                           
                                                                                                                                              
@@ -94,21 +94,50 @@
 					<div class="row">
 						<!-- Main Content -->
 						<div class="medium-9 small-12 columns" role="content">
-							<div class="row">
-								<div class="small-12 columns">
-									<h2>Category: Data cleaning</h2>
-								</div>
-							</div>
-
 <article>
-	<h3><a href="http://bangshen.github.io/osm-data-cleaning-project.html">Report on OpenStreetMap Data Cleaning Project</a></h3>
-	<h6>Written by <a href="http://bangshen.github.io/author/shenbang.html">ShenBang</a> in <a href="http://bangshen.github.io/category/data-cleaning.html">Data cleaning</a> on 周五 28 九月 2018. Tags: <a href="http://bangshen.github.io/tag/data-cleaning.html">Data cleaning</a>, </h6>
-	<p>What do you want to be when you grow up? Well, if you're not sure you want to do just one thing for the rest of your life, you're not alone. In this illuminating talk, writer and artist Emilie Wapnick describes the kind of people she calls "multipotentialites" -- who have a range of interests and jobs over one lifetime. Are you one?Emilie Wapnick has been a musician/songwriter, a web designer, filmmaker, writer, law student and entrepreneur. "This is how I’ve always lived," she writes, "moving from interest to interest, building on my skills in different areas, and synthesizing the knowledge I acquire along the way."</p>
-		<p class="continue"><a href="http://bangshen.github.io/osm-data-cleaning-project.html">Continue reading &raquo;</a></p>
+	<h2>Learning Notes: Practical Statistics for Data Scientists</h2>
+	<p>With this book, you’ll learn:</p>
+<ul>
+<li>Why exploratory data analysis is a key preliminary step in data science</li>
+<li>How random sampling can reduce bias and yield a higher quality dataset, even with big data</li>
+<li>How the principles of experimental design yield definitive answers to questions</li>
+<li>How to use regression to estimate outcomes and detect anomalies</li>
+<li>Key classification techniques for predicting which categories a record belongs to</li>
+<li>Statistical machine learning methods that “learn” from data</li>
+<li>Unsupervised <font color = red>learning methods for extracting meaning from unlabeled data</font></li>
+</ul>
+<p><strong>I have read this book for 20 days, this is what I want to learn and told</strong></br></p>
+<p>this is a new $sin = \int_{a}^{b}(a - b)$ </br></p>
+<p>and of course, there are some $$sin = \int_{a}^{b}(a - b)$$</p>
+<h3>4. Regression and Prediction</h3>
+<h4><strong>4.1 Simple Linear Regression</strong></br></h4>
+<p>The Equtation is:
+$$Y = b_{0} + b_{1} X $$ 
+The fitted values, also refered to the predicted values, are denoted by $\hat{Y}_{i}$, there are given by:
+$$\hat{Y}_{i} = \hat{b}_0+\hat{b}_1X_{i}$$
+Try to minimize the following RSS and return $b_0$ and $b_1$, RSS is <em>residual sum of squares</em>, in Chinese is 残差平方和: 
+$$RSS = \sum_{i=1}^{n}(Y_i-\hat{Y}_{i})^2$$</p>
+<p><strong>4.2 Multiple Linear Regression</strong></br>
+The basic fitted values are given by:
+$$\hat{Y_i} = \hat{b_0} + \hat{b_1}X_{1,i} + \hat{b_2}X_{2,i} +...+ \hat{b_p}X_{p,i}$$</p>
+<p><strong><font color = red>Next three metrics to assess the models: RMSE,RSE,$R^2$</font></strong></br> </p>
+<p>The most important performance metric from a data science perspective is <strong><font color = blue>root mean squared error, or RMSE , This measures the overall accuracy of the model</font></strong>, and is a basis for comparing it to other models.
+$$RMSE = \sqrt{\frac{\sum_{i=1}^{n}(y_i-\hat{y_i}))}{n}}$$
+Another metrics is residual standard error, RSE, which is given by:
+$$RSE = \sqrt{\frac{\sum_{i=1}^{n}(y_i-\hat{y_i}))}{n-p-1}}$$
+The only difference is that the denominator is the degrees of freedom, instead of number of records.
+<strong><font color = green>In practice, for linear regression, the difference between RMSE and RSE is very small, particularly for big data applications.</font></strong></br>
+Another useful metric that you will see in software output is the coefficient of
+determination, also called $R^2$, which is given by:
+$$R^2 =1- \sqrt{\frac{\sum_{i=1}^{n}(y_i-\hat{y_i}))}{\sum_{i=1}^{n}(y_i-\bar{y_i}))}}$$</p>
+<p><strong>Warning</strong>: In addition to the t-statistic, R and other packages will often report a p-value (Pr(&gt;|t|) in the R output) and F-statistic. Data scientists do not generally get too involved with the interpretation of these statistics, nor with the issue of statistical ignificance. <strong><font color = blue>Data scientists primarily focus on the t-statistic as a useful guide for whether to include a predictor in a model
+or not. High t-statistics (which go with p-values near 0) indicate a predictor should be retained in a model, while very low t-statistics indicate a predictor could be dropped</font></strong>. See “P-Value” for more discussion.</p>
+<h4>4.3 Prediction Using Regression</h4>
+	<hr/>
+	<h6>Written by <a href="http://bangshen.github.io/author/shen-bang.html">Shen Bang</a> on 2018-11-07 10:20:00+01:00. Tags: <a href="http://bangshen.github.io/tag/notes.html">Notes</a>, <a href="http://bangshen.github.io/tag/data-science.html">Data Science</a>, </h6>
 </article>
-<hr />
 
-
+<hr/>
 						</div>
 						<!-- End Main Content -->
 						<!-- Sidebar -->
