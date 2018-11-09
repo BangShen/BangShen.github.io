@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Shen Bang</title><link href="http://bangshen.github.io/" rel="alternate"></link><link href="http://bangshen.github.io/feeds/statistics.atom.xml" rel="self"></link><id>http://bangshen.github.io/</id><updated>2018-11-07T10:20:00+01:00</updated><entry><title>Learning Notes: Practical Statistics for Data Scientists</title><link href="http://bangshen.github.io/Practical%20Statistics%20for%20Data%20Scientists.html" rel="alternate"></link><published>2018-11-07T10:20:00+01:00</published><updated>2018-11-07T10:20:00+01:00</updated><author><name>Shen Bang</name></author><id>tag:bangshen.github.io,2018-11-07:Practical Statistics for Data Scientists.html</id><summary type="html">&lt;p&gt;With this book, you’ll learn:&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Shen Bang</title><link href="http://bangshen.github.io/" rel="alternate"></link><link href="http://bangshen.github.io/feeds/statistics.atom.xml" rel="self"></link><id>http://bangshen.github.io/</id><updated>2018-08-07T10:20:00+02:00</updated><entry><title>Learning Notes: Practical Statistics for Data Scientists</title><link href="http://bangshen.github.io/Practical%20Statistics%20for%20Data%20Scientists.html" rel="alternate"></link><published>2018-08-07T10:20:00+02:00</published><updated>2018-08-07T10:20:00+02:00</updated><author><name>Shen Bang</name></author><id>tag:bangshen.github.io,2018-08-07:Practical Statistics for Data Scientists.html</id><summary type="html">&lt;h3&gt;Motivations&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;I have read this book for 20 days, this is what I want to learn and told&lt;/strong&gt;&lt;/br&gt;
+The goal of this book:&lt;/br&gt;
+&lt;em&gt; To lay out, in digestable, navigable, and easily referenced form, key concepts from statistics that are relavent to data science
+&lt;/em&gt; To explain which concepts are important and useful from data science perspective, which are less so, and why.&lt;/p&gt;
+&lt;p&gt;With this book, you’ll learn:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Why exploratory data analysis is a key preliminary step in data science&lt;/li&gt;
 &lt;li&gt;How random sampling can reduce bias and yield a higher quality dataset, even with big data&lt;/li&gt;
@@ -9,10 +14,8 @@
 &lt;li&gt;Statistical machine learning methods that “learn” from data&lt;/li&gt;
 &lt;li&gt;Unsupervised &lt;font color = red&gt;learning methods for extracting meaning from unlabeled data&lt;/font&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;I have read this book for 20 days, this is what I want to learn and told&lt;/strong&gt;&lt;/br&gt;&lt;/p&gt;
-&lt;p&gt;this is a new $sin = \int_{a}^{b}(a - b)$ &lt;/br&gt;&lt;/p&gt;
-&lt;p&gt;and of course, there are some $$sin = \int_{a}^{b}(a - b)$$&lt;/p&gt;
-&lt;h3&gt;4. Regression and Prediction&lt;/h3&gt;
+&lt;h3&gt;Chapter 1&lt;/h3&gt;
+&lt;h3&gt;Chapter 4. Regression and Prediction&lt;/h3&gt;
 &lt;h4&gt;&lt;strong&gt;4.1 Simple Linear Regression&lt;/strong&gt;&lt;/br&gt;&lt;/h4&gt;
 &lt;p&gt;The Equtation is:
 $$Y = b_{0} + b_{1} X $$ 
@@ -20,8 +23,8 @@ The fitted values, also refered to the predicted values, are denoted by $\hat{Y}
 $$\hat{Y}_{i} = \hat{b}_0+\hat{b}_1X_{i}$$
 Try to minimize the following RSS and return $b_0$ and $b_1$, RSS is &lt;em&gt;residual sum of squares&lt;/em&gt;, in Chinese is 残差平方和: 
 $$RSS = \sum_{i=1}^{n}(Y_i-\hat{Y}_{i})^2$$&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;4.2 Multiple Linear Regression&lt;/strong&gt;&lt;/br&gt;
-The basic fitted values are given by:
+&lt;h4&gt;&lt;strong&gt;4.2 Multiple Linear Regression&lt;/strong&gt;&lt;/br&gt;&lt;/h4&gt;
+&lt;p&gt;The basic fitted values are given by:
 $$\hat{Y_i} = \hat{b_0} + \hat{b_1}X_{1,i} + \hat{b_2}X_{2,i} +...+ \hat{b_p}X_{p,i}$$&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;&lt;font color = red&gt;Next three metrics to assess the models: RMSE,RSE,$R^2$&lt;/font&gt;&lt;/strong&gt;&lt;/br&gt; &lt;/p&gt;
 &lt;p&gt;The most important performance metric from a data science perspective is &lt;strong&gt;&lt;font color = blue&gt;root mean squared error, or RMSE , This measures the overall accuracy of the model&lt;/font&gt;&lt;/strong&gt;, and is a basis for comparing it to other models.
@@ -33,6 +36,25 @@ The only difference is that the denominator is the degrees of freedom, instead o
 Another useful metric that you will see in software output is the coefficient of
 determination, also called $R^2$, which is given by:
 $$R^2 =1- \sqrt{\frac{\sum_{i=1}^{n}(y_i-\hat{y_i}))}{\sum_{i=1}^{n}(y_i-\bar{y_i}))}}$$&lt;/p&gt;
+&lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;Warning&lt;/strong&gt;: In addition to the t-statistic, R and other packages will often report a p-value (Pr(&amp;gt;|t|) in the R output) and F-statistic. Data scientists do not generally get too involved with the interpretation of these statistics, nor with the issue of statistical ignificance. &lt;strong&gt;&lt;font color = blue&gt;Data scientists primarily focus on the t-statistic as a useful guide for whether to include a predictor in a model
 or not. High t-statistics (which go with p-values near 0) indicate a predictor should be retained in a model, while very low t-statistics indicate a predictor could be dropped&lt;/font&gt;&lt;/strong&gt;. See “P-Value” for more discussion.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4&gt;Model Selection ---AIC and penalized regression&lt;/h4&gt;
+&lt;p&gt;AIC can be used to chose the model, and determine which predictor should be dropped or not.AIC has the form:
+$$AIC = 2P+nlog(RSS/n)$$
+where p is the number of variables and n is the number of records. The goal is to
+find the model that minimizes AIC.&lt;/br&gt;
+The way to minimize the AIC: which is called &lt;strong&gt;stepwide regression&lt;/strong&gt;, which successively adds and drops predictors to find the models that lower AIC. The stepwide regression includes &lt;em&gt;forward selection&lt;/em&gt; and &lt;em&gt;backward selection&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Penalized regression is similar in spirit to AIC&lt;/strong&gt;, instead of explicitly searching through a discrete set of models, the model-fitting equations incorporates a constriant that penalizes the model for many variables. Rather than eliminating predictor variables entirely, penalized regression applies the penalty by reducing coefficients, in some cases to near zero. Common penalized regression methods are &lt;em&gt;ridge regression and lasso regression&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Key ideas&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The most important metrics to evaluate a model are root mean squared
+error (RMSE) and R-squared ($R^2$)&lt;/li&gt;
+&lt;li&gt;&lt;font color = red&gt;The standard error of the coefficients can be used to measure the reliability of a variable’s contribution to a model.&lt;/font&gt;&lt;/li&gt;
+&lt;li&gt;Stepwise regression is a way to automatically determine which variables
+should be included in the model&lt;/li&gt;
+&lt;li&gt;Weighted regression is used to give certain records more or less weight in
+fitting the equation&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h4&gt;4.3 Prediction Using Regression&lt;/h4&gt;</summary><category term="Notes"></category><category term="Data Science"></category></entry></feed>
