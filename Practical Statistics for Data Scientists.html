@@ -4,19 +4,19 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-		<title>Shen Bang</title>
+		<title>Bang's Blog</title>
 		<meta name="description" content="">
 		<meta name="author" content="Shen Bang">
 
-		<link rel="stylesheet" href="http://bangshen.github.io/theme/css/foundation.css" />
-		<link rel="stylesheet" href="http://bangshen.github.io/theme/css/pygment/monokai.css" />
-		<link rel="stylesheet" href="http://bangshen.github.io/theme/css/custom.css" />
+		<link rel="stylesheet" href="https://bangshen.github.io/theme/css/foundation.css" />
+		<link rel="stylesheet" href="https://bangshen.github.io/theme/css/pygment/monokai.css" />
+		<link rel="stylesheet" href="https://bangshen.github.io/theme/css/custom.css" />
 
 
-		<script src="http://bangshen.github.io/theme/js/modernizr.js"></script>
+		<script src="https://bangshen.github.io/theme/js/modernizr.js"></script>
 
 		<!-- Feeds -->
-		<link href="http://bangshen.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Shen Bang Atom Feed" />
+		<link href="https://bangshen.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Bang's Blog Atom Feed" />
 
 
 		<!-- mathjax config similar to math.stackexchange -->
@@ -45,28 +45,29 @@
 					</section>
 
 					<section class="middle tab-bar-section">
-						<h1 class="title">Shen&nbsp;Bang</h1>
+						<h1 class="title">Bang's&nbsp;Blog</h1>
 					</section>
 				</nav>
 
 				<!-- mobile side bar nav -->
 				<aside class="left-off-canvas-menu">
 					<ul class="off-canvas-list">
-						<li><a href="http://bangshen.github.io">Home</a></li>
+						<li><a href="https://bangshen.github.io">Home</a></li>
 						<li><label>Categories</label></li>
-							<li ><a href="http://bangshen.github.io/category/data-cleaning.html">Data cleaning</a></li>
-							<li class="active"><a href="http://bangshen.github.io/category/statistics.html">Statistics</a></li>
+							<li ><a href="https://bangshen.github.io/category/data-cleaning.html">Data cleaning</a></li>
+							<li class="active"><a href="https://bangshen.github.io/category/statistics.html">Statistics</a></li>
 
 						<li><label>Links</label></li>
 							<li><a href="http://getpelican.com/">Pelican</a></li>
+							<li><a href="http://python.org/">Python.org</a></li>
 							<li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+							<li><a href="#">You can modify those links in your config file</a></li>
 
 
 
 						<li><label>Social</label></li>
-							<li><a href="https://github.com/BangShen">Github</a></li>
-							<li><a href="https://www.linkedin.com/in/bang-shen/">Linkedin</a></li>
-							<li><a href="https://www.zhihu.com/people/chen-bang-61-78/activities">Zhihu</a></li>
+							<li><a href="#">Another social link</a></li>
+							<li><a href="#">You can add links in your config file</a></li>
 					</ul>	
 				</aside>
 
@@ -74,14 +75,14 @@
 				<nav class="top-bar hide-for-small-only" data-topbar>
 					<ul class="title-area">
 						<li class="name">
-							<h1><a href="http://bangshen.github.io/">Shen Bang</a></h1>
+							<h1><a href="https://bangshen.github.io/">Bang's Blog</a></h1>
 						</li>
 					</ul>
 
 					<section class="top-bar-section">
 						<ul class="left">
-								<li ><a href="http://bangshen.github.io/category/data-cleaning.html">Data cleaning</a></li>
-								<li class="active"><a href="http://bangshen.github.io/category/statistics.html">Statistics</a></li>
+								<li ><a href="https://bangshen.github.io/category/data-cleaning.html">Data cleaning</a></li>
+								<li class="active"><a href="https://bangshen.github.io/category/statistics.html">Statistics</a></li>
 						</ul>
                         <ul class="right">                                                                                                                                           
                                                                                                                                              
@@ -96,7 +97,14 @@
 						<div class="medium-9 small-12 columns" role="content">
 <article>
 	<h2>Learning Notes: Practical Statistics for Data Scientists</h2>
-	<h3>Motivations</h3>
+	<p></br>
+</br></p>
+<h4>Why this book you must read if you want be data scientist?</h4>
+<p>Two goal of this book:</p>
+<ul>
+<li>To lay out, in digestable, navigable, and easily referenced form, key concepts from statistics that are relavent to data science</li>
+<li>To explain which concepts are important and useful from data science perspective, which are less so, and why.</li>
+</ul>
 <p><strong>I have read this book for 20 days, this is what I want to learn and told</strong></br>
 The goal of this book:</br>
 <em> To lay out, in digestable, navigable, and easily referenced form, key concepts from statistics that are relavent to data science
@@ -109,10 +117,56 @@ The goal of this book:</br>
 <li>How to use regression to estimate outcomes and detect anomalies</li>
 <li>Key classification techniques for predicting which categories a record belongs to</li>
 <li>Statistical machine learning methods that “learn” from data</li>
-<li>Unsupervised <font color = red>learning methods for extracting meaning from unlabeled data</font></li>
+<li>Unsupervised learning methods for extracting meaning from unlabeled data</li>
 </ul>
-<h3>Chapter 1</h3>
+<h3>Chapter 1 Exploratory Data Analysis</h3>
+<hr />
+<p>In this book, data can be grouped as rectangular and nonrectangular data structures. For rectangular data which is the typical frame of referece for an data analysis is rectangular data like a spreadsheet and database table, in  python the basic rectangular data structure is dataframe. For nonrectangular data structures are graph data science or spatial data structure.</p>
+<p>Next is the most important part of this chapter. we will talk about the four metrics used for exploring or knowing data. They are data of location, variability, skewness as well as kurtosis.</p>
+<h4><strong>1.1 Estimate of location</strong></h4>
+<p>which will describe the central tendency of the data, estimate of where most of the data is located. Mean is commonly used in this, including mean, trimmed mean, and weighted mean. Three different means have their different purposes.</p>
+<ul>
+<li>Mean
+$$Mean = \frac{\sum_{i}^{n}x_i}{n}$$</li>
+<li>Trimmed Mean, the p smallest and largest values were dropped, which can estimate the influence of exterme data 
+$$Trimmed Mean = \frac{\sum_{i=p+1}^{n-p}x_i}{n-2p}$$</li>
+<li>
+<p>Weighted mean：
+$$Weighted mean = \frac{\sum_{i=1}^{n}w_ix_i}{w_i}$$</p>
+<p>Two main motivations to use a weighted mean:</p>
+<ol>
+<li>Some values are intrinsically more variable than others, and highly variable observations are given a lower weight.</li>
+<li>The data collected does not equally represent the different groups that we are interested in measuring</li>
+<li>Median or weighted median</li>
+</ol>
+<p>For n distinct ordered elements $x_1,x_2...x_n$ with positive weights $w_1,w_2...w_n$ such that $\sum_{i=1}^{n} w_i = 1$,the weighted median is the element $x_k$satisfying $\sum_{i=1}^{k-1}w_i &lt;=1/2 and \sum_{i=k+1}^{n}w_i&lt;=1/2$.
+<img alt="" src="https://i.imgur.com/biG8I3p.png" /></p>
+</li>
+</ul>
+<h4><strong>1.2 Estimate of variability</strong></h4>
+<ul>
+<li>
+<p>Mean absolution deviation:
+$$Mean absolution deviation = \frac{\sum_{i=1}^{n}}{|x_i-\bar{x}|}$$</p>
+</li>
+<li>
+<p>Variance</p>
+</li>
+</ul>
+<p>$$variance = s^2 = \frac{\sum(x-\bar{x})^2}{n-1}$$</p>
+<ul>
+<li>standard deviation</li>
+</ul>
+<p>$$standard deviation = s = \sqrt{variance}$$</p>
+<p>The most common metric to diagnotic the variability is variance and standard deviation, here has one point need to be explained is that denominator of a variance is n-1, this book explained this: If you use the intuitive denominator of n in the variance formula, you will underestimate the true value of the variance and the standard deviation in the population. This is referred to as a biased estimate. However, if you divide by n – 1 instead of n, the standard deviation becomes an unbiased estimate. </br></p>
+<p>To fully explain why using n leads to a biased estimate involves the notion of degrees of freedom, which takes into account the number of constraints in computing an estimate. In this case, there are n – 1 degrees of freedom since there is one constraint: the standard deviation depends on calculating the sample mean.</p>
+<p>As to the metrics of estimate of location of data, the trimmed mean and median are robust to outliers and extreme values, but as to the metrics of estimating of variability the variance, standard deviation, the mean absolute deviation is not robust to the exterme values, a really robust estimate of variability is the median absolute deviation from the median:
+$$median absolute deviation  = median(|x_1-m|,|x_2-m|...|x_N-m|)$$
+Where m is the median.<font color=red>不太明白为啥这个可以表示variability啊</font></p>
+<h4><strong>1.3 skewness and kurtosis</strong></h4>
+<p>This part is intentionly blank</p>
 <h3>Chapter 4. Regression and Prediction</h3>
+<hr />
 <h4><strong>4.1 Simple Linear Regression</strong></br></h4>
 <p>The Equtation is:
 $$Y = b_{0} + b_{1} X $$ 
@@ -148,15 +202,108 @@ The way to minimize the AIC: which is called <strong>stepwide regression</strong
 <ul>
 <li>The most important metrics to evaluate a model are root mean squared
 error (RMSE) and R-squared ($R^2$)</li>
-<li><font color = red>The standard error of the coefficients can be used to measure the reliability of a variable’s contribution to a model.</font></li>
+<li><strong><font color = blue>The standard error of the coefficients can be used to measure the reliability of a variable’s contribution to a model.</font></strong></li>
 <li>Stepwise regression is a way to automatically determine which variables
 should be included in the model</li>
 <li>Weighted regression is used to give certain records more or less weight in
 fitting the equation</li>
 </ul>
-<h4>4.3 Prediction Using Regression</h4>
+<h4><strong>4.3 Prediction Using Regression</strong></h4>
+<p>A little bit confused about this part, generally introducting some concept about the confidence intervals and prediction intervals about the prediction coefficient.</p>
+<h4><strong>4.4 Factor Variables in Regression</strong></h4>
+<p>When we are using regression for prediction, it is inevitable that some variables are factor variables such as phone brand and people's location. <strong><font color = blue>But the problem is regression requires numberical inputs</font></strong>. The solution to this problem will vary based on the different factor variables type.</br></p>
+<ol>
+<li><strong>when the factor variables without much level</strong>: This is the most common condition, and the approach is to convert a variable into a set of binary <em>dummy variable.</em> The feature with k level can be converted to k columns as new features by using dummy function in <a href="https://pandas.pydata.org/pandas-docs/stable/generated/pandas.get_dummies.html"><em>pd.get_dummies</em></a>.In the regression setting, a factor variable with P distinct levels is usually represented by a matrix with only P – 1 columns.(<strong><font color = red>WHY??</font></strong>) , this was explained by following in this book:</br>
+This is because a regression model typically includes an intercept term. With an intercept, once you have defined the values for P – 1 binaries, the value for the Pth is known and could be considered redundant.</li>
+<li><strong>when the factor variables with many levels</strong>: Sometimes the feature can produce a huge number of binary dummies like zip code in the US, encountering this situation, we need to explore the data and find the relationship between preditor and the outcome, and the to determine whether useful information is contained in this categories.If yes, two ways are recommended, the first one is group the zip code according to other variables such as sales price(such as group the zipcode into five groups based on the house price form high to low). The second one(which is even better) is forming the zip codes group using the residuals  from an initial model.(<strong><font color = red>how to implement this?</font></strong>) </li>
+<li><strong>when the factor variables are ordered factors</strong>: it is really easy, just convert the ordered factors to numberic variable, by that the information contained in the ordering can be saved.</li>
+</ol>
+<p>Alao, apart from those approaches metioned above, some other ways to encode factor variables can be known by:</br>
+<strong>Different factor codings</strong>: There are several different ways to encode factor variables, known as contrast coding systems. For example, deviation coding, also know as sum contrasts, compares each level against the overall mean. Another contrast is polynomial coding, which is appropriate for ordered factors;
+see the section “Ordered Factor Variables”. With the exception of ordered actors, data scientists will generally not encounter any type of coding besides reference coding or one hot encoder.</p>
+<h5><strong>4.4.1 Interpreting the regression equation</strong></h5>
+<p>Generally speaking, the most important use of regression is to predict some dependent variables. But in some cases, however, gaining insight from the equation itself to understand the nature of the relationship between the predictor and the outcome can be of value.</br>
+Three types of this were metioned:</br></p>
+<ul>
+<li>
+<p>Having <strong>correlated predictor</strong> can make it difficult to interpret the relationship between the predictor and the outcome, one example listed in this book is the coefficient of bedroom of the house price is negative, meaning that the price will be lower with the increase of bedbook, it seems illogical.The reason to this is the bedroom is correlated with house size which has significant effect on the house price. Another extreme case of correlated variables produces <strong>multicollinearity</strong>, perfect multicollinearity occurs when one predictor variable can be expressed as a linear combination of others.This problem must be addressed untill the multicollinearity is gone.</br>
+Notes:Multicolinearity is not such a problem for nonregression methods like trees, clustering, and nearest-neighbors, and in such methods it may be advisable to retain P dummies (instead of P-1). That said, even in those methods, nonredundancy in predictor variables is still a virtue.</p>
+</li>
+<li>
+<p><strong>Confounding variables</strong>: with correlated variables, the problems is caused by the different variables have the same relationship with the outcome.But with the confounding variables, the problem is an important variable is not included in the regression equation, for example, the regression equation to predict house price does not include the location of the house.</p>
+</li>
+<li><strong>Interactions and main effect</strong>:</br> 
+Do not understand the whole part, and this part is intentionly blank.</li>
+</ul>
+<p>Key ideas:</p>
+<ul>
+<li>Because of correlation between predictors, care must be taken in the interpretation of the coefficients in multiple linear regression.</li>
+<li>Multicollinearity can cause numerical instability in fitting the regression
+equation.</li>
+<li>A confounding variable is an important predictor that is omitted from a model and can lead to a regression equation with spurious relationships.</li>
+<li>An interaction term between two variables is needed if the relationship between the variables and the response is interdependent</li>
+</ul>
+<h4><strong>4.5 Testing the Assumptions: Regression Diagnostics</strong></h4>
+<p>This part talks about the assumotion of linear regression, and gives some advices on how to diagnostics those assumptions. <a href="http://people.duke.edu/~rnau/testing.htm">This link</a> is also a good place to introduce the linear regression assumption and its diagnostics(four principal assumptions mentioned in this page). Check it if you want learn deeper.(<font color = red>really recommended this</font>)</p>
+<ul>
+<li><strong>outlier</strong>:No statistical theory that can separates outliers from nonoutliers, but there are some rules of thumb for determine how the distant from the bulk of the data. such as with the boxplot, outliers are pointed out which is blow or above the box boundaries. <strong>Standardized residual</strong> can also be used to </li>
+<li><strong>Influential Values</strong>: A value whose absence would significantly change the regression equation is termed an <em>infuential observation</em>. But how do we know which record is influential observation? Fortunately, statisticians have developed several metrics to determine the influence of a single record on a
+regression. Two metrics were introduced in this book one is <strong>hat-value</strong>
+, another is <em>cook's distance</em>. A common measure of leverage is the <em>hat-value</em>; values above $2(P+1)/n$ indicates a high-levearge data value. Cook's distance defines influence as a combination of leverage and residual size.An observation has high influence if cook's distance exceeds $4/(n-P-1)$.(<strong><font color = red> what is hat-values and cook's distancereally mean</font></strong>)</li>
+</ul>
+<p>Oh,no, standardized residual, hat-value as well as cook's distance, so many concepts to understand, is there any way to incorporate those in a plot or equation. The answer is yes, an influence plot or bubble plot can combine those in a single plot. On this plot, the hat-values are plotted in x-axis, and the residual are plotted in y-axis, the size of points is related to the value of cook's distance.</br>
+Actually, identifying influential observations is not nesseary based on different purposes. For purposes of fitting a regression that reliably predict future data, 
+identifying influential observations is only useful in small data sets, while in many records it is unlikely that one observation can cause extreme influence on the fitted regression. But for purposes of anomaly detection, identifying observations can be very useful.</p>
+<h5><strong>4.5.1 Heteroskedasticity, Non-Normality and Correlated Errors</strong></h5>
+<p>This part is intentionally blank.</br>
+In general, however, the distribution of residuals is not critical in data science.</p>
+<h5><strong>4.5.2 Partial Residual Plots and Nonlinearity</strong></h5>
+<p>Partial residual plots are a way to visualize how well the estimated fit explains
+the relationship between a predictor and the outcome. Along with detection of
+outliers, <strong>this is probably the most important diagnostic for data scientists</strong>.</p>
+<p>$$partial residual  = residual + \hat{b_i}X_i$$
+Note that why called partial, this is because that residual will sum all residual together, but partial residual focused on the certain predictor. This is why the partial residual can be uesd to explain the relationship between <strong>a predictor</strong> and <strong>the outcome</strong>, untill now, it is likely that you do not know how does this explain the relationship? The answer is partial residual plot. where the  $X_i$ on the x-axis and the partial residuals on the y-axis.</br></p>
+<p><img alt="" src="https://i.imgur.com/bunVgcl.png" /></p>
+<p>From this pic, the relationship between SqFtTotLiving and the sales price is evidently nonlinear(this against the assumption of linearity metioned in this <a href="http://people.duke.edu/~rnau/testing.htm">link</a>). This suggests that, instead of a simple linear term for SqFtTotLiving, a nonlinear term should be considered.(maybe polynomial and spline regression)</p>
+<p><strong>key ideas:</strong></p>
+<ul>
+<li>The partial residuals plot can be used to qualitatively assess the fit for each regression term, possibly leading to alternative model specification.</li>
+<li>Single records (including regression outliers) can have a big influence on
+a regression equation with small data, but this effect washes out in big data</li>
+<li>While outliers can cause problems for small data sets, the primary interest
+with outliers is to identify problems with the data, or locate anomalies.</li>
+</ul>
+<h4><strong>4.6 Polynomial and Spline Regression</strong></h4>
+<p>The relationship between the response and a predictor variable is not necessarily
+linear.Two non-linear regression was discussed in this chapter. <strong>Polynomial and splines.</strong></p>
+<h5>Polynomial</h5>
+<p>Nothing much to notes</p>
+<h5>Splines</h5>
+<p>Nothing much to notes here, but I think splines is much super than polynomial.</p>
+<h5>Generalized additive models</h5>
+<p>Generalized additive models (GAM) automate the process of specifying the knots in splines</p>
+<p><strong>Summay:</strong>
+In this chapter, linear and non-linear regression were discussed. And for linear regression, more content focused on the multilinear regression, while for non-linear regression, polynomial and splines functions were introduced.</br>
+Before we are conducting the regression, out input must be numberial, so the factor variables must be dummied or grouped by other variables. When all data are numberial, we could find the regression coefficient by least squares(最小二乘). After producing the coefficient, how do we assess our models? RMSE and RSE and $R^2$ are the answer. When we get the coefficient amd assess the models, We naturally want to check if the coefficient is interpretable, sometimes due to the correlated variables and confounding variables, the regression results are not actually interpretable. Another work we must consider is that the linear regression assumption, we need to test the assumptions, ways to diagnostics those assumptions were mentioned in the according paragraph.</br>
+At last, I want to say the content about splines and polynomial, I did not pay much attention to those even though I thought non-linear regression is much more common than the linear one.</br></p>
+<p><strong>New tips and tricks I learned by reading this</strong>:</p>
+<ul>
+<li>a predictor can be checked if it has the linear relationship with the outcome by partial residual.</li>
+<li>we can test the assumptions, to check if the data meets the requires of linear regression.</li>
+<li>influential values can be pointed out by influence-plot.</li>
+</ul>
+<p>Keep going and learning!!</p>
+<h3>Chapter 5. Classification</h3>
+<p>This chapter three algorithms to implement classification are discussed: Naive bayes, discriminant analysis and logistic regression. After that, metrics to assess classification models were talked.</p>
+<h4>5.1 Naive Bayes</h4>
+<p>看了，但是感觉没法吸收太多， bayes是我一直的心痛所在，看来我是需要想办法克服这个难题了</p>
+<h4>5.2 Discriminant Analysis</h4>
+<p>看了，但是总觉得实用性不大</p>
+<h4>Logistic Regression</h4>
+<p>summary:</p>
+<p>感觉这一章节里面logistic regression 是被重点介绍的</p>
 	<hr/>
-	<h6>Written by <a href="http://bangshen.github.io/author/shen-bang.html">Shen Bang</a> on 2018-08-07 10:20:00+02:00. Tags: <a href="http://bangshen.github.io/tag/notes.html">Notes</a>, <a href="http://bangshen.github.io/tag/data-science.html">Data Science</a>, </h6>
+	<h6>Written by <a href="https://bangshen.github.io/author/shen-bang.html">Shen Bang</a> on 2018-08-07 10:20:00-07:00. Tags: <a href="https://bangshen.github.io/tag/notes.html">Notes</a>, <a href="https://bangshen.github.io/tag/data-science.html">Data Science</a>, </h6>
 </article>
 
 <hr/>
@@ -168,7 +315,9 @@ fitting the equation</li>
 								<h5>Links</h5>
 								<ul class="side-nav">
 									<li><a href="http://getpelican.com/">Pelican</a></li>
+									<li><a href="http://python.org/">Python.org</a></li>
 									<li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+									<li><a href="#">You can modify those links in your config file</a></li>
 								</ul>
 							</div>
 
@@ -182,9 +331,8 @@ fitting the equation</li>
 							<div class="panel">
 								<h5>Social</h5>
 								<ul class="side-nav">
-									<li><a href="https://github.com/BangShen">Github</a></li>
-									<li><a href="https://www.linkedin.com/in/bang-shen/">Linkedin</a></li>
-									<li><a href="https://www.zhihu.com/people/chen-bang-61-78/activities">Zhihu</a></li>
+									<li><a href="#">Another social link</a></li>
+									<li><a href="#">You can add links in your config file</a></li>
 								</ul>
 							</div>
 						</aside>
@@ -204,8 +352,8 @@ fitting the equation</li>
 			</div><!--off-canvas inner-->
 		</div><!--off-canvas wrap-->
 
-		<script src="http://bangshen.github.io/theme/js/jquery.js"></script>
-		<script src="http://bangshen.github.io/theme/js/foundation.min.js"></script>
+		<script src="https://bangshen.github.io/theme/js/jquery.js"></script>
+		<script src="https://bangshen.github.io/theme/js/foundation.min.js"></script>
 		<script>
 			$(document).foundation();
 		</script>
