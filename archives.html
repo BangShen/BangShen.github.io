@@ -1,179 +1,61 @@
-<!doctype html>
-<html class="no-js" lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <title>Bang's Blog</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
 
-		<title>Bang's Blog</title>
-		<meta name="description" content="">
-		<meta name="author" content="Shen Bang">
+        <!--[if IE]>
+            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+</head>
 
-		<link rel="stylesheet" href="https://bangshen.github.io/theme/css/foundation.css" />
-		<link rel="stylesheet" href="https://bangshen.github.io/theme/css/pygment/monokai.css" />
-		<link rel="stylesheet" href="https://bangshen.github.io/theme/css/custom.css" />
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">Bang's Blog </a></h1>
+                <nav><ul>
+                    <li><a href="/pages/about-me.html">About me</a></li>
+                    <li><a href="/category/data-cleaning.html">Data cleaning</a></li>
+                    <li><a href="/category/statistics.html">Statistics</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+<h1>Archives for Bang's Blog</h1>
 
+<dl>
+    <dt>周五 28 九月 2018</dt>
+    <dd><a href="/osm-data-cleaning-project.html">Report on OpenStreetMap Data Cleaning Project</a></dd>
+    <dt>周二 07 八月 2018</dt>
+    <dd><a href="/Practical Statistics for Data Scientists.html">Learning Notes: Practical Statistics for Data Scientists</a></dd>
+</dl>
+</section>
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>blogroll</h2>
+                        <ul>
+                            <li><a href="https://www.linkedin.com/in/bang-shen/">Linkedin</a></li>
+                            <li><a href="https://www.facebook.com/benny.shen.984">Facebook</a></li>
+                            <li><a href="https://twitter.com/BangShen">Twitter</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
 
-		<script src="https://bangshen.github.io/theme/js/modernizr.js"></script>
+                            <li><a href="https://www.linkedin.com/in/bang-shen/">Linkedin</a></li>
+                            <li><a href="https://www.facebook.com/benny.shen.984">Facebook</a></li>
+                            <li><a href="https://www.zhihu.com/people/chen-bang-61-78/activities">Zhihu</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
 
-		<!-- Feeds -->
-		<link href="https://bangshen.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Bang's Blog Atom Feed" />
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
 
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
 
-		<!-- mathjax config similar to math.stackexchange -->
-		<script type="text/x-mathjax-config">
-		MathJax.Hub.Config({
-			jax: ["input/TeX", "output/HTML-CSS"],
-			tex2jax: {
-				inlineMath: [ ['$', '$'] ],
-				displayMath: [ ['$$', '$$']],
-				processEscapes: true,
-				skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-			},
-			messageStyle: "none",
-			"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
-		});
-		</script>
-		<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-	</head>
-	<body>
-		<div class="off-canvas-wrap">
-			<div class="inner-wrap">
-				<!-- mobile top bar to activate nav -->
-				<nav class="tab-bar show-for-small">
-					<section class="left-small">
-						<a class="left-off-canvas-toggle menu-icon" ><span></span></a>
-					</section>
-
-					<section class="middle tab-bar-section">
-						<h1 class="title">Bang's&nbsp;Blog</h1>
-					</section>
-				</nav>
-
-				<!-- mobile side bar nav -->
-				<aside class="left-off-canvas-menu">
-					<ul class="off-canvas-list">
-						<li><a href="https://bangshen.github.io">Home</a></li>
-						<li><label>Categories</label></li>
-							<li ><a href="https://bangshen.github.io/category/data-cleaning.html">Data cleaning</a></li>
-							<li ><a href="https://bangshen.github.io/category/statistics.html">Statistics</a></li>
-
-						<li><label>Links</label></li>
-							<li><a href="http://getpelican.com/">Pelican</a></li>
-							<li><a href="http://python.org/">Python.org</a></li>
-							<li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
-							<li><a href="#">You can modify those links in your config file</a></li>
-
-
-
-						<li><label>Social</label></li>
-							<li><a href="#">Another social link</a></li>
-							<li><a href="#">You can add links in your config file</a></li>
-					</ul>	
-				</aside>
-
-				<!-- top bar nav -->
-				<nav class="top-bar hide-for-small-only" data-topbar>
-					<ul class="title-area">
-						<li class="name">
-							<h1><a href="https://bangshen.github.io/">Bang's Blog</a></h1>
-						</li>
-					</ul>
-
-					<section class="top-bar-section">
-						<ul class="left">
-								<li ><a href="https://bangshen.github.io/category/data-cleaning.html">Data cleaning</a></li>
-								<li ><a href="https://bangshen.github.io/category/statistics.html">Statistics</a></li>
-						</ul>
-                        <ul class="right">                                                                                                                                           
-                                                                                                                                             
-                        </ul>  
-					</section>
-				</nav>
-
-				<!-- Main Page Content and Sidebar -->
-				<section class="main-section">
-					<div class="row">
-						<!-- Main Content -->
-						<div class="medium-9 small-12 columns" role="content">
-							<div class="row">
-								<div class="small-12 columns">
-									<h2>Archives</h2>
-								</div>
-							</div>
-	<div class="row">
-		<div class="small-10 columns small-centered">
-				<div class="row archive-year">
-					<div class="small-2 columns text-right">
-						<h3>2018</h3>
-					</div>
-				</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>8月 07</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="https://bangshen.github.io/Practical Statistics for Data Scientists.html">Learning Notes: Practical Statistics for Data Scientists</a></h5>
-						</div>
-					</div>
-					<div class="row archive-entry">
-						<div class="small-2 columns text-right">
-							<h5>9月 28</h5>
-						</div>
-						<div class="small-10 columns">
-							<h5><a href="https://bangshen.github.io/osm-data-cleaning-project.html">Report on OpenStreetMap Data Cleaning Project</a></h5>
-						</div>
-					</div>
-		</div>
-	</div>
-						</div>
-						<!-- End Main Content -->
-						<!-- Sidebar -->
-						<aside class="medium-3 hide-for-small-only columns">
-							<div class="panel">
-								<h5>Links</h5>
-								<ul class="side-nav">
-									<li><a href="http://getpelican.com/">Pelican</a></li>
-									<li><a href="http://python.org/">Python.org</a></li>
-									<li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
-									<li><a href="#">You can modify those links in your config file</a></li>
-								</ul>
-							</div>
-
-							<div class="panel">
-								<h5>Tags</h5>
-								<ul class="tag-cloud">
-								</ul>
-							</div>
-
-
-							<div class="panel">
-								<h5>Social</h5>
-								<ul class="side-nav">
-									<li><a href="#">Another social link</a></li>
-									<li><a href="#">You can add links in your config file</a></li>
-								</ul>
-							</div>
-						</aside>
-						<!-- End Sidebar -->
-					</div>
-
-					<!-- Footer -->
-					<footer class="row">
-						<div class="medium-9 small-12">
-							<hr/>
-							<p class="text-center">Powered by <a href="http://getpelican.com">Pelican</a> and <a href="http://foundation.zurb.com/">Zurb Foundation</a>. Theme by <a href="http://hamaluik.com">Kenton Hamaluik</a>.</p>
-						</div>
-					</footer>
-					<!-- End Footer -->
-				</section>
-				<a class="exit-off-canvas"></a>
-			</div><!--off-canvas inner-->
-		</div><!--off-canvas wrap-->
-
-		<script src="https://bangshen.github.io/theme/js/jquery.js"></script>
-		<script src="https://bangshen.github.io/theme/js/foundation.min.js"></script>
-		<script>
-			$(document).foundation();
-		</script>
-	</body>
+</body>
 </html>
