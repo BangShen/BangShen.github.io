@@ -14,7 +14,7 @@
         <header id="banner" class="body">
                 <h1><a href="/">Shen Bang </a></h1>
                 <nav><ul>
-                    <li><a href="/pages/about-me.html">About me</a></li>
+                    <li><a href="/pages/welcome-to-my-site.html">Welcome to My Site</a></li>
                     <li><a href="/category/data-cleaning.html">Data cleaning</a></li>
                     <li><a href="/category/notes.html">Notes</a></li>
                     <li><a href="/category/statistics.html">Statistics</a></li>
@@ -23,7 +23,352 @@
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="/growth mindset.html">Growth Mindset-the power of believing that you can improve</a></h1>
+                    <h1 class="entry-title"><a href="/Practical Statistics for Data Scientists.html">Learning Notes: Practical Statistics for Data Scientists</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2018-11-07T10:20:00-08:00">
+                Published: 周三 07 十一月 2018
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/shen-bang.html">Shen Bang</a>
+        </address>
+<p>In <a href="/category/statistics.html">Statistics</a>.</p>
+
+</footer><!-- /.post-info --><p></br>
+</br></p>
+<h2>Before start</h2>
+<h3><strong>Why this book you must read if you want be data scientist?</strong></h3>
+<p>Two goal of this book:</p>
+<ul>
+<li>To lay out, in digestable, navigable, and easily referenced form, key concepts from statistics that are relavent to data science</li>
+<li>To explain which concepts are important and useful from data science perspective, which are less so, and why.</li>
+</ul>
+<p>With this book, you’ll learn:</p>
+<ul>
+<li>Why exploratory data analysis is a key preliminary step in data science</li>
+<li>How random sampling can reduce bias and yield a higher quality dataset, even with big data</li>
+<li>How the principles of experimental design yield definitive answers to questions</li>
+<li>How to use regression to estimate outcomes and detect anomalies</li>
+<li>Key classification techniques for predicting which categories a record belongs to</li>
+<li>Statistical machine learning methods that “learn” from data</li>
+<li>Unsupervised learning methods for extracting meaning from unlabeled data</li>
+</ul>
+<h3><strong>What do new statistics perspectives I learn by reading this book?</strong></h3>
+<ul>
+<li><strong>Alc and penalized regression</strong> are two different way to overcome overfitting, but with different way, see the summary of <strong>chapter 4</strong></li>
+<li><strong>multilinear explaination</strong> need to consider all the relationship of each other variable, which will occassionally affect the explaination of variables.</li>
+<li><strong>hat-values and cook's distance</strong> can be used to determine which point is influencal values, those influencal values should be cancled.</li>
+</ul>
+<h3>Chapter 1 Exploratory Data Analysis</h3>
+<hr />
+<p>In this book, data can be grouped as rectangular and nonrectangular data structures. For rectangular data which is the typical frame of referece for an data analysis is rectangular data like a spreadsheet and database table, in  python the basic rectangular data structure is dataframe. For nonrectangular data structures are graph data science or spatial data structure.</p>
+<p>Next is the most important part of this chapter. we will talk about the four metrics used for exploring or knowing data. They are data of location, variability, skewness as well as kurtosis.</p>
+<h4><strong>1.1 Estimate of location</strong></h4>
+<p>which will describe the central tendency of the data, estimate of where most of the data is located. Mean is commonly used in this, including mean, trimmed mean, and weighted mean. Three different means have their different purposes.</p>
+<ul>
+<li>Mean
+<div class="math">$$Mean = \frac{\sum_{i}^{n}x_i}{n}$$</div>
+</li>
+<li>Trimmed Mean, the p smallest and largest values were dropped, which can estimate the influence of exterme data 
+<div class="math">$$Trimmed Mean = \frac{\sum_{i=p+1}^{n-p}x_i}{n-2p}$$</div>
+</li>
+<li>
+<p>Weighted mean：
+<div class="math">$$Weighted mean = \frac{\sum_{i=1}^{n}w_ix_i}{w_i}$$</div>
+</p>
+<p>Two main motivations to use a weighted mean:</p>
+<ol>
+<li>Some values are intrinsically more variable than others, and highly variable observations are given a lower weight.</li>
+<li>The data collected does not equally represent the different groups that we are interested in measuring</li>
+<li>Median or weighted median</li>
+</ol>
+<p>For n distinct ordered elements <span class="math">\(x_1,x_2...x_n\)</span> with positive weights <span class="math">\(w_1,w_2...w_n\)</span> such that <span class="math">\(\sum_{i=1}^{n} w_i = 1\)</span>,the weighted median is the element <span class="math">\(x_k\)</span>satisfying <span class="math">\(\sum_{i=1}^{k-1}w_i &lt;=1/2 and \sum_{i=k+1}^{n}w_i&lt;=1/2\)</span>.</p>
+</li>
+</ul>
+<p></br>
+<img alt="" src="https://i.imgur.com/biG8I3p.png" /></p>
+<h4><strong>1.2 Estimate of variability</strong></h4>
+<ul>
+<li>
+<p>Mean absolution deviation:
+<div class="math">$$Mean absolution deviation = \frac{\sum_{i=1}^{n}}{|x_i-\bar{x}|}$$</div>
+</p>
+</li>
+<li>
+<p>Variance</p>
+</li>
+</ul>
+<div class="math">$$variance = s^2 = \frac{\sum(x-\bar{x})^2}{n-1}$$</div>
+<ul>
+<li>standard deviation</li>
+</ul>
+<div class="math">$$standard deviation = s = \sqrt{variance}$$</div>
+<p>The most common metric to diagnotic the variability is variance and standard deviation, here has one point need to be explained is that denominator of a variance is n-1, this book explained this: If you use the intuitive denominator of n in the variance formula, you will underestimate the true value of the variance and the standard deviation in the population. This is referred to as a biased estimate. However, if you divide by n – 1 instead of n, the standard deviation becomes an unbiased estimate. </br></p>
+<p>To fully explain why using n leads to a biased estimate involves the notion of degrees of freedom, which takes into account the number of constraints in computing an estimate. In this case, there are n – 1 degrees of freedom since there is one constraint: the standard deviation depends on calculating the sample mean.</p>
+<p>As to the metrics of estimate of location of data, the trimmed mean and median are robust to outliers and extreme values, but as to the metrics of estimating of variability the variance, standard deviation, the mean absolute deviation is not robust to the exterme values, a really robust estimate of variability is the median absolute deviation from the median:
+</p>
+<div class="math">$$median absolute deviation  = median(|x_1-m|,|x_2-m|...|x_N-m|)$$</div>
+<p>
+Where m is the median.<font color=red>不太明白为啥这个可以表示variability啊</font></p>
+<h4><strong>1.3 skewness and kurtosis</strong></h4>
+<p>This part is intentionly blank</p>
+<h4>1.4 Data distribution</h4>
+<p>Vasulization is critical in exploring the data process, following is some plot type could be used in our daily works.</p>
+<ul>
+<li>Boxplot</li>
+<li>Frequency table and histograma</li>
+<li>Density distribution</li>
+<li>bar plot</li>
+<li>Pie plot</li>
+</ul>
+<h4><strong>1.5 Correlation</strong></h4>
+<p>The standard way to visualize the relationship between two measured data variables is with a scatterplot。 And the numberial format to calculate the relationship coefficient is <strong>pearson's correlation coefficient</strong>, given by:
+</p>
+<div class="math">$$r=\frac{\sum_{i=1}^{N}(x_i-\bar{x})(y_i-\bar{y})}{(N-1)s_xS_y}$$</div>
+<p>
+<font color = blue>this correlation coefficient is sensitive to outliers in the data. but Software packages offer robust alternatives to the classical correlation coefficient.</font>
+When it comes to two or more variables, some other ways can be used to do this:</p>
+<ul>
+<li>For Two numberic variables: Hexagonal Binning and Contours</li>
+<li>For Two categorical variables: crosstable</li>
+<li>For categorical and numeric data: boxplot or violin plot</li>
+<li>For multiple variables: facet</li>
+</ul>
+<p><strong>Summary Chapter 1</strong></br>
+This chapter includes the definition of mean, trimmed mean, weighted mean and median, and weighted median. When we talk about estimate of location, such as mean, median  or some variation of mean and median, we must to remind ourself when will we use each others and why we did not use another, It will be better if we can provide the fact conditions. The median is not the only robust estimate of location, in fact , a trimmed mean is widely used to avoid the influence of outliers.</br>
+variability: variance and standard deviation are most widespread used in report, but they are not robust to outliers. other metrics like median/percentile are robust.</br>
+Data distribution : data distrubution can display the skewness and kurtosis of data. Plus location and variability, form the four key moment of a distribution.</br>
+correlation: use pearson correlation / or scatter plot</br>
+exploring two or more variables: </br>
+two numberical data: use heat map, countor,</br> 
+numberical versus caterical: boxplot or violin plot</br>
+two categorical: cross table</br>
+numberical vs categorical: boxplot and violin plot</br>
+multiple varicable: facet</p>
+<h3>Chapter 2. Data and sampling distributions</h3>
+<hr />
+<h4>2.1</h4>
+<h3>Chapter 4. Regression and Prediction</h3>
+<hr />
+<h4><strong>4.1 Simple Linear Regression</strong></br></h4>
+<p>The Equtation is:
+</p>
+<div class="math">$$Y = b_0 + b_{1} X $$</div>
+<p> 
+The fitted values, also refered to the predicted values, are denoted by <span class="math">\(\hat{Y}_{i}\)</span>, there are given by:
+</p>
+<div class="math">$$\hat{Y}_{i} = \hat{b}_0+\hat{b}_1X_{i}$$</div>
+<p>
+Try to minimize the following RSS and return <span class="math">\(b_0\)</span> and <span class="math">\(b\_1\)</span>, RSS is <em>residual sum of squares</em>, in Chinese is 残差平方和: 
+</p>
+<div class="math">$$RSS = \sum_{i=1}^{n}(Y_i-\hat{Y}_{i})^2$$</div>
+<h4><strong>4.2 Multiple Linear Regression</strong></br></h4>
+<p>The basic fitted values are given by:
+</p>
+<div class="math">$$\hat{Y_i} = \hat{b_0} + \hat{b_1}X_{1,i} + \hat{b_2}X_{2,i} +...+ \hat{b_p}X_{p,i}$$</div>
+<p><strong><font color = red>Next three metrics to assess the models: RMSE,RSE,<span class="math">\(R^2\)</span></font></strong></br> </p>
+<p>The most important performance metric from a data science perspective is <strong><font color = blue>root mean squared error, or RMSE , This measures the overall accuracy of the model</font></strong>, and is a basis for comparing it to other models.
+</p>
+<div class="math">$$RMSE = \sqrt{\frac{\sum_{i=1}^{n}(y_i-\hat{y_i}))}{n}}$$</div>
+<p>
+Another metrics is residual standard error, RSE, which is given by:
+</p>
+<div class="math">$$RSE = \sqrt{\frac{\sum_{i=1}^{n}(y_i-\hat{y_i}))}{n-p-1}}$$</div>
+<p>
+The only difference is that the denominator is the degrees of freedom, instead of number of records.
+<strong><font color = green>In practice, for linear regression, the difference between RMSE and RSE is very small, particularly for big data applications.</font></strong></br>
+Another useful metric that you will see in software output is the coefficient of
+determination, also called <span class="math">\(R^2\)</span>, which is given by:
+</p>
+<div class="math">$$R^2 =1- \sqrt{\frac{\sum_{i=1}^{n}(y_i-\hat{y_i}))}{\sum_{i=1}^{n}(y_i-\bar{y_i}))}}$$</div>
+<blockquote>
+<p><strong>Warning</strong>: In addition to the t-statistic, R and other packages will often report a p-value (Pr(&gt;|t|) in the R output) and F-statistic. Data scientists do not generally get too involved with the interpretation of these statistics, nor with the issue of statistical ignificance. <strong><font color = blue>Data scientists primarily focus on the t-statistic as a useful guide for whether to include a predictor in a model
+or not. High t-statistics (which go with p-values near 0) indicate a predictor should be retained in a model, while very low t-statistics indicate a predictor could be dropped</font></strong>. See “P-Value” for more discussion.</p>
+</blockquote>
+<h4>Model Selection ---AIC and penalized regression</h4>
+<p>AIC can be used to chose the model, and determine which predictor should be dropped or not.AIC has the form:
+</p>
+<div class="math">$$AIC = 2P+nlog(RSS/n)$$</div>
+<p>
+where p is the number of variables and n is the number of records. The goal is to
+find the model that minimizes AIC.</br>
+The way to minimize the AIC: which is called <strong>stepwide regression</strong>, which successively adds and drops predictors to find the models that lower AIC. The stepwide regression includes <em>forward selection</em> and <em>backward selection</em>.</p>
+<p><strong>Penalized regression is similar in spirit to AIC</strong>, instead of explicitly searching through a discrete set of models, the model-fitting equations incorporates a constriant that penalizes the model for many variables. Rather than eliminating predictor variables entirely, penalized regression applies the penalty by reducing coefficients, in some cases to near zero. Common penalized regression methods are <em>ridge regression and lasso regression</em>.</p>
+<p><strong>Key ideas</strong></p>
+<ul>
+<li>The most important metrics to evaluate a model are root mean squared
+error (RMSE) and R-squared (<span class="math">\(R^2\)</span>)</li>
+<li><strong><font color = blue>The standard error of the coefficients can be used to measure the reliability of a variable’s contribution to a model.</font></strong></li>
+<li>Stepwise regression is a way to automatically determine which variables
+should be included in the model</li>
+<li>Weighted regression is used to give certain records more or less weight in
+fitting the equation</li>
+</ul>
+<h4><strong>4.3 Prediction Using Regression</strong></h4>
+<p>A little bit confused about this part, generally introducting some concept about the confidence intervals and prediction intervals about the prediction coefficient.</p>
+<h4><strong>4.4 Factor Variables in Regression</strong></h4>
+<p>When we are using regression for prediction, it is inevitable that some variables are factor variables such as phone brand and people's location. <strong><font color = blue>But the problem is regression requires numberical inputs</font></strong>. The solution to this problem will vary based on the different factor variables type.</br></p>
+<ol>
+<li><strong>when the factor variables without much level</strong>: This is the most common condition, and the approach is to convert a variable into a set of binary <em>dummy variable.</em> The feature with k level can be converted to k columns as new features by using dummy function in <a href="https://pandas.pydata.org/pandas-docs/stable/generated/pandas.get_dummies.html"><em>pd.get_dummies</em></a>.In the regression setting, a factor variable with P distinct levels is usually represented by a matrix with only P – 1 columns.(<strong><font color = red>WHY??</font></strong>) , this was explained by following in this book:</br>
+This is because a regression model typically includes an intercept term. With an intercept, once you have defined the values for P – 1 binaries, the value for the Pth is known and could be considered redundant.</li>
+<li><strong>when the factor variables with many levels</strong>: Sometimes the feature can produce a huge number of binary dummies like zip code in the US, encountering this situation, we need to explore the data and find the relationship between preditor and the outcome, and the to determine whether useful information is contained in this categories.If yes, two ways are recommended, the first one is group the zip code according to other variables such as sales price(such as group the zipcode into five groups based on the house price form high to low). The second one(which is even better) is forming the zip codes group using the residuals  from an initial model.(<strong><font color = red>how to implement this?</font></strong>) </li>
+<li><strong>when the factor variables are ordered factors</strong>: it is really easy, just convert the ordered factors to numberic variable, by that the information contained in the ordering can be saved.</li>
+</ol>
+<p>Alao, apart from those approaches metioned above, some other ways to encode factor variables can be known by:</br>
+<strong>Different factor codings</strong>: There are several different ways to encode factor variables, known as contrast coding systems. For example, deviation coding, also know as sum contrasts, compares each level against the overall mean. Another contrast is polynomial coding, which is appropriate for ordered factors;
+see the section “Ordered Factor Variables”. With the exception of ordered actors, data scientists will generally not encounter any type of coding besides reference coding or one hot encoder.</p>
+<h5><strong>4.4.1 Interpreting the regression equation</strong></h5>
+<p>Generally speaking, the most important use of regression is to predict some dependent variables. But in some cases, however, gaining insight from the equation itself to understand the nature of the relationship between the predictor and the outcome can be of value.</br>
+Three types of this were metioned:</br></p>
+<ul>
+<li>
+<p>Having <strong>correlated predictor</strong> can make it difficult to interpret the relationship between the predictor and the outcome, one example listed in this book is the coefficient of bedroom of the house price is negative, meaning that the price will be lower with the increase of bedbook, it seems illogical.The reason to this is the bedroom is correlated with house size which has significant effect on the house price. Another extreme case of correlated variables produces <strong>multicollinearity</strong>, perfect multicollinearity occurs when one predictor variable can be expressed as a linear combination of others.This problem must be addressed untill the multicollinearity is gone.</br>
+Notes:Multicolinearity is not such a problem for nonregression methods like trees, clustering, and nearest-neighbors, and in such methods it may be advisable to retain P dummies (instead of P-1). That said, even in those methods, nonredundancy in predictor variables is still a virtue.</p>
+</li>
+<li>
+<p><strong>Confounding variables</strong>: with correlated variables, the problems is caused by the different variables have the same relationship with the outcome.But with the confounding variables, the problem is an important variable is not included in the regression equation, for example, the regression equation to predict house price does not include the location of the house.</p>
+</li>
+<li><strong>Interactions and main effect</strong>:</br> 
+Do not understand the whole part, and this part is intentionly blank.</li>
+</ul>
+<p>Key ideas:</p>
+<ul>
+<li>Because of correlation between predictors, care must be taken in the interpretation of the coefficients in multiple linear regression.</li>
+<li>Multicollinearity can cause numerical instability in fitting the regression
+equation.</li>
+<li>A confounding variable is an important predictor that is omitted from a model and can lead to a regression equation with spurious relationships.</li>
+<li>An interaction term between two variables is needed if the relationship between the variables and the response is interdependent</li>
+</ul>
+<h4><strong>4.5 Testing the Assumptions: Regression Diagnostics</strong></h4>
+<p>This part talks about the assumotion of linear regression, and gives some advices on how to diagnostics those assumptions. <a href="http://people.duke.edu/~rnau/testing.htm">This link</a> is also a good place to introduce the linear regression assumption and its diagnostics(four principal assumptions mentioned in this page). Check it if you want learn deeper.(<font color = red>really recommended this</font>)</p>
+<ul>
+<li><strong>outlier</strong>:No statistical theory that can separates outliers from nonoutliers, but there are some rules of thumb for determine how the distant from the bulk of the data. such as with the boxplot, outliers are pointed out which is blow or above the box boundaries. <strong>Standardized residual</strong> can also be used to </li>
+<li><strong>Influential Values</strong>: A value whose absence would significantly change the regression equation is termed an <em>infuential observation</em>. But how do we know which record is influential observation? Fortunately, statisticians have developed several metrics to determine the influence of a single record on a
+regression. Two metrics were introduced in this book one is <strong>hat-value</strong>
+, another is <em>cook's distance</em>. A common measure of leverage is the <em>hat-value</em>; values above <span class="math">\(2(P+1)/n\)</span> indicates a high-levearge data value. Cook's distance defines influence as a combination of leverage and residual size.An observation has high influence if cook's distance exceeds <span class="math">\(4/(n-P-1)\)</span>.(<strong><font color = red> what is hat-values and cook's distancereally mean</font></strong>)</li>
+</ul>
+<p>Oh,no, standardized residual, hat-value as well as cook's distance, so many concepts to understand, is there any way to incorporate those in a plot or equation. The answer is yes, an influence plot or bubble plot can combine those in a single plot. On this plot, the hat-values are plotted in x-axis, and the residual are plotted in y-axis, the size of points is related to the value of cook's distance.</br>
+Actually, identifying influential observations is not nesseary based on different purposes. For purposes of fitting a regression that reliably predict future data, 
+identifying influential observations is only useful in small data sets, while in many records it is unlikely that one observation can cause extreme influence on the fitted regression. But for purposes of anomaly detection, identifying observations can be very useful.</p>
+<h5><strong>4.5.1 Heteroskedasticity, Non-Normality and Correlated Errors</strong></h5>
+<p>This part is intentionally blank.</br>
+In general, however, the distribution of residuals is not critical in data science.</p>
+<h5><strong>4.5.2 Partial Residual Plots and Nonlinearity</strong></h5>
+<p>Partial residual plots are a way to visualize how well the estimated fit explains
+the relationship between a predictor and the outcome. Along with detection of
+outliers, <strong>this is probably the most important diagnostic for data scientists</strong>.</p>
+<div class="math">$$partial residual  = residual + \hat{b_i}X_i$$</div>
+<p>
+Note that why called partial, this is because that residual will sum all residual together, but partial residual focused on the certain predictor. This is why the partial residual can be uesd to explain the relationship between <strong>a predictor</strong> and <strong>the outcome</strong>, untill now, it is likely that you do not know how does this explain the relationship? The answer is partial residual plot. where the  <span class="math">\(X_i\)</span> on the x-axis and the partial residuals on the y-axis.</br></p>
+<p><img alt="" src="https://i.imgur.com/bunVgcl.png" /></p>
+<p>From this pic, the relationship between SqFtTotLiving and the sales price is evidently nonlinear(this against the assumption of linearity metioned in this <a href="http://people.duke.edu/~rnau/testing.htm">link</a>). This suggests that, instead of a simple linear term for SqFtTotLiving, a nonlinear term should be considered.(maybe polynomial and spline regression)</p>
+<p><strong>key ideas:</strong></p>
+<ul>
+<li>The partial residuals plot can be used to qualitatively assess the fit for each regression term, possibly leading to alternative model specification.</li>
+<li>Single records (including regression outliers) can have a big influence on
+a regression equation with small data, but this effect washes out in big data</li>
+<li>While outliers can cause problems for small data sets, the primary interest
+with outliers is to identify problems with the data, or locate anomalies.</li>
+</ul>
+<h4><strong>4.6 Polynomial and Spline Regression</strong></h4>
+<p>The relationship between the response and a predictor variable is not necessarily
+linear.Two non-linear regression was discussed in this chapter. <strong>Polynomial and splines.</strong></p>
+<h5>Polynomial</h5>
+<p>Nothing much to notes</p>
+<h5>Splines</h5>
+<p>Nothing much to notes here, but I think splines is much super than polynomial.</p>
+<h5>Generalized additive models</h5>
+<p>Generalized additive models (GAM) automate the process of specifying the knots in splines</p>
+<p><strong>Summay Chapter 4:</strong></br>
+In this chapter, linear and non-linear regression were discussed. And for linear regression, more content focused on the multilinear regression, while for non-linear regression, polynomial and splines functions were introduced.</br>
+Before we are conducting the regression, out input must be numberial, so the factor variables must be dummied or grouped by other variables. When all data are numberial, we could find the regression coefficient by least squares(最小二乘). After producing the coefficient, how do we assess our models? RMSE and RSE and <span class="math">\(R^2\)</span> are the answer. When we get the coefficient amd assess the models, We naturally want to check if the coefficient is interpretable, sometimes due to the correlated variables and confounding variables, the regression results are not actually interpretable. Another work we must consider is that the linear regression assumption, we need to test the assumptions, ways to diagnostics those assumptions were mentioned in the according paragraph.</br>
+At last, I want to say the content about splines and polynomial, I did not pay much attention to those even though I thought non-linear regression is much more common than the linear one.</br></p>
+<p><strong>New tips and tricks I learned by reading this</strong>:</p>
+<ul>
+<li>a predictor can be checked if it has the linear relationship with the outcome by partial residual.</li>
+<li>we can test the assumptions, to check if the data meets the requires of linear regression.</li>
+<li>influential values can be pointed out by influence-plot.</li>
+</ul>
+<p>Keep going and learning!!</p>
+<h3>Chapter 5. Classification</h3>
+<p>This chapter three algorithms to implement classification are discussed: Naive bayes, discriminant analysis and logistic regression. After that, metrics to assess classification models were talked.</p>
+<h4>5.1 Naive Bayes</h4>
+<p>看了，但是感觉没法吸收太多， bayes是我一直的心痛所在，看来我是需要想办法克服这个难题了</p>
+<h4>5.2 Discriminant Analysis</h4>
+<p>看了，但是总觉得实用性不大</p>
+<h4>Logistic Regression</h4>
+<p>summary:</p>
+<p>感觉这一章节里面logistic regression 是被重点介绍的</p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' && location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' }, Macros: {} }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>                </article>
+            </aside><!-- /#featured -->
+                <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <hr />
+                    <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/growth mindset.html" rel="bookmark"
+                           title="Permalink to Growth Mindset-the power of believing that you can improve">Growth Mindset-the power of believing that you can improve</a></h1>
+                </header>
+
+                <div class="entry-content">
 <footer class="post-info">
         <abbr class="published" title="2018-11-07T10:20:00-08:00">
                 Published: 周三 07 十一月 2018
@@ -34,21 +379,10 @@
         </address>
 <p>In <a href="/category/notes.html">Notes</a>.</p>
 <p>tags: <a href="/tag/notes.html">Notes</a> </p>
-</footer><!-- /.post-info --><p>I occasionally knew this ted talk  in a lecture about career development. The speaker of this ted talk is Carol Dweck, the professor of psychology of stanford university, who is konw for her work on the mindset psychological trait. </p>
-<h3><font color = blue>what did I learn by reading this book?</font></h3>
-<ul>
-<li>I am not a person of growth mindset, I allway doubt my ability and am inconficent</li>
-<li>Fixed and growth mindset are opposite, but they exist in our body together, for me, the fixed mindset has the majority proportion than growth mindset</li>
-<li>Most of the successful people are not afraid of failure and can recover from failure(as described in inspirational stories or some autobiographies), beacause they have the  <strong>growth mindset</strong></li>
-<li>People with growth mindset focus on the development of ability and love to challenge.</li>
-</ul>
-<p>Here is the Ted talk:(Note that this is a <strong>youtube video</strong>, if you can not access to youtube, click <a href="https://www.ted.com/talks/carol_dweck_the_power_of_believing_that_you_can_improve">here</a> to learn this talk on TED)Hope that you will enjoy this video, and know more about your mindset, try to change it if you are not satisfacted with your mindset or life.</p>
-<iframe width="729" height="410" src="https://www.youtube.com/embed/hiiEeMN7vbQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <hr />
-                    <ol id="posts-list" class="hfeed">
+</footer><!-- /.post-info -->                <p>This notes a TED talks about growth mindset, if there is one sentence to explain what is the growth mindset, I want to say it might be 'keep open and believe you can grow by practicing'. This books introduce us how this mindset can affect our decisions in daily life, career and even in commercial field. Read this book or watch this video and then throw away your fixed mindset.</p>
+                <a class="readmore" href="/growth mindset.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
 
             <li><article class="hentry">
                 <header>
@@ -69,28 +403,6 @@
 <p>tags: <a href="/tag/data-cleaning.html">Data cleaning</a> </p>
 </footer><!-- /.post-info -->                <p>What do you want to be when you grow up? Well, if you're not sure you want to do just one thing for the rest of your life, you're not alone. In this illuminating talk, writer and artist Emilie Wapnick describes the kind of people she calls "multipotentialites" -- who have a range of interests and jobs over one lifetime. Are you one?Emilie Wapnick has been a musician/songwriter, a web designer, filmmaker, writer, law student and entrepreneur. "This is how I’ve always lived," she writes, "moving from interest to interest, building on my skills in different areas, and synthesizing the knowledge I acquire along the way."</p>
                 <a class="readmore" href="/osm-data-cleaning-project.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="/Practical Statistics for Data Scientists.html" rel="bookmark"
-                           title="Permalink to Learning Notes: Practical Statistics for Data Scientists">Learning Notes: Practical Statistics for Data Scientists</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2018-08-07T10:20:00-07:00">
-                Published: 周二 07 八月 2018
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="/author/shen-bang.html">Shen Bang</a>
-        </address>
-<p>In <a href="/category/statistics.html">Statistics</a>.</p>
-
-</footer><!-- /.post-info -->                <p>Statistical methods are a key part of of data science.This practical guide explains how to apply various statistical methods to data science, tells you how to avoid their misuse, and gives you advice on what's important and what's not.</p>
-                <a class="readmore" href="/Practical Statistics for Data Scientists.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
                 </ol><!-- /#posts-list -->
