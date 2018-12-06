@@ -147,7 +147,62 @@ numberical vs categorical: boxplot and violin plot</br>
 multiple varicable: facet</p>
 <h3>Chapter 2. Data and sampling distributions</h3>
 <hr />
-<h4>2.1</h4>
+<h4>2.1 Bootstrap</h4>
+<h5>what is bootstrap? why this should be introduced?</h5>
+<p>The bootstrap method is a resampling technique used to estimate statistics on a population by sampling a dataset with replacement.</p>
+<p>The algorithm for a bootstrap resampling of the mean is as follows, for a sample of size n:</p>
+<div class="highlight"><pre><span></span>1. Draw a sample value, record, replace it
+2. Repeat n times
+3. Record the mean of the n resampled values(get 1 data by this way)
+4. Repeat steps 1-3 R times(get R data by this)
+5. Use The R data to:
+
+    1. calculate the standard deviation 
+    2. produce a histogram or boxplot
+    3. find a confidence interval
+</pre></div>
+
+
+<p><strong><font color = blue>Advantages of bootstrap</font></strong></p>
+<ul>
+<li>does not necessarily involve any assumptions about the data or the sample statistic being normally distributed.</li>
+<li>with replacement</li>
+</ul>
+<p><strong><font color = blue>Key ideas</font></strong></p>
+<ul>
+<li>The bootstrap (sampling with replacement from a data set) is a powerful
+tool for assessing the variability of a sample statistic</li>
+</ul>
+<p><strong><font color = blue>Application senes</font></strong></p>
+<ul>
+<li>I have a group of data with only 20 numbers, I want to know the confidence interval of the mean(or other median, etc.) of the data.</li>
+<li>estimate the skill of machine learning models on unseen data</li>
+</ul>
+<p><strong><font color = blue>K-cross validation versus bootstrap</font></strong></br>
+see <a href="https://machinelearningmastery.com/a-gentle-introduction-to-the-bootstrap-method/">this link</a> gives the examples of how to use bootstrap methods to test the metrics of a machine learning models.</br></p>
+<p>In practice, it is often not so much of a difference between k-fold validation and bootstrap.</br>
+This <a href="https://stats.stackexchange.com/questions/18348/differences-between-cross-validation-and-bootstrapping-to-estimate-the-predictio">link</a> told us that the difference between cross validation and bootstraping to estimate modeling prediction error.<font color = blue>CV tends to be less biased but K-fold CV has fairly large variance. On the other hand, bootstrapping tends to drastically reduce the variance but gives more biased results (they tend to be pessimistic).</font></br>
+For large sample sizes, the variance issues become less important and the computational part is more of an issues. I still would stick by repeated CV for small and large sample sizes.</br>
+<strong>The examples to bootstrap for estimating models:</strong></p>
+<div class="highlight"><pre><span></span>[0.1, 0.2, 0.3, 0.4, 0.5, 0.6] this is the observation
+
+train = [0.2, 0.1, 0.2, 0.6] this is the sample from above observation with sample size of 4
+test = [0.3, 0.4, 0.5] this is the out of bag sample, until now train and test dataset have been sampled by using bootstrap method 
+model = fit(train)
+statistic = evaluate(model, test) this can calculate the statistics
+
+Until now, this is the one iteration. And you can repeat this 30 times and get the statistics and calculate the mean of it.
+</pre></div>
+
+
+<p><strong><font color=red size = 4>Extension: sampling methods introduction</font></strong></br>
+Bootstrap is one kind of sampling methods. There are some other sampling methods such as <strong>k-cross validation,permutation tests, and bootstrap</strong></p>
+<p>what is the purpose of sampling?(<a href="https://en.wikipedia.org/wiki/Resampling_(statistics)">from wikipedia</a>)</p>
+<ul>
+<li>Estimating the precision of sample statistics (medians, variances, percentiles) by using subsets of available data (jackknifing) or drawing randomly with replacement from a set of data points (bootstrapping): <strong>this is basic function</strong></li>
+<li><font color = red>Exchanging labels on data points when performing significance tests (permutation tests, also called exact tests, randomization tests, or re-randomization tests)???</font></li>
+<li>Validating models by using random subsets (bootstrapping, cross validation): <strong>this point has be explained by last paragraph</strong></li>
+</ul>
 <h3>Chapter 4. Regression and Prediction</h3>
 <hr />
 <h4><strong>4.1 Simple Linear Regression</strong></br></h4>
