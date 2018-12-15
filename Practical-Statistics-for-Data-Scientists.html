@@ -63,6 +63,8 @@
 <li><strong>Alc and penalized regression</strong> are two different way to overcome overfitting, but with different way, see the summary of <strong>chapter 4</strong></li>
 <li><strong>multilinear explaination</strong> need to consider all the relationship of each other variable, which will occassionally affect the explaination of variables.</li>
 <li><strong>hat-values and cook's distance</strong> can be used to determine which point is influencal values, those influencal values should be cancled.</li>
+<li><strong>Bootstrap</strong>: sampling methods, can be used to estimate the statistics and estimate models prediction erros, different with k-fold cv, <strong>permutation tests and bootstrap are two main types of resampling procedures.</strong> </li>
+<li>The bootstrap is used to assess the reliability of estimate;permutation tests are used to test hypothesis.</li>
 </ul>
 <h3>Chapter 1 Exploratory Data Analysis</h3>
 <hr />
@@ -152,7 +154,7 @@ numberical vs categorical: boxplot and violin plot</br>
 multiple varicable: facet</p>
 <h3>Chapter 2. Data and sampling distributions</h3>
 <hr />
-<h4>2.1 Bootstrap</h4>
+<h4>2.1 Resampling——Bootstrap</h4>
 <h5>what is bootstrap? why this should be introduced?</h5>
 <p>The bootstrap method is a resampling technique used to estimate statistics on a population by sampling a dataset with replacement.</p>
 <p>The algorithm for a bootstrap resampling of the mean is as follows, for a sample of size n:</p>
@@ -208,6 +210,43 @@ Bootstrap is one kind of sampling methods. There are some other sampling methods
 <li><font color = red>Exchanging labels on data points when performing significance tests (permutation tests, also called exact tests, randomization tests, or re-randomization tests)???</font></li>
 <li>Validating models by using random subsets (bootstrapping, cross validation): <strong>this point has be explained by last paragraph</strong></li>
 </ul>
+<h4>2.2 Resampling——Permutation Test</h4>
+<p><strong>One sentence to describe permutation testing</strong></br>
+To judge whether an observed difference between samples might occur by chance</p>
+<p><strong>Difference of bootstrap and permutation test</strong></br>
+The bootstrap is used to assess the reliability of estimate, typically involving one group;</br>
+Permutation tests are used to test hypotheses, typically involving two or more groups.</p>
+<p><strong>Permutation test definition</strong>:</br>
+In a permutation procedure, two or more samples are involved, typically the groups in an A/B or other hypothesis test. Permute means to change the order of a set of values. The first step in a permutation test of a hypothesis is to combine
+the results from groups A and B (and, if used, C, D, …) together.  We then test that hypothesis by randomly drawing groups from this combined set, and seeing how much they differ from one another. The permutation procedure is as follows：</p>
+<blockquote>
+<ol>
+<li>Combine the results from the different groups in a single data set</li>
+<li>Shuffle the combined data, then randomly draw (without replacing) a resample of the same size as group A</li>
+<li>From the remaining data, randomly draw (without replacing) a resample of the same size as group B</li>
+<li>Do the same for groups C, D, and so on.</li>
+<li>Whatever statistic or estimate was calculated for the original samples (e.g., difference in group proportions), calculate it now for the resamples, and record; this constitutes one permutation iteration.</li>
+<li>Repeat the previous steps R times to yield a permutation distribution of the test statistic.</li>
+</ol>
+</blockquote>
+<p><em>In the book, they have given an example of permutation testing about web stickness, if you are still confused about this ,plz read the book at page 118.</em></p>
+<p><strong>Two types of permutation test</strong></br>
+the difference of two permutation testing is the preceding random shuffling procedure. </p>
+<ul>
+<li>
+<p><strong>Exhaustive permutation testing</strong>: In this permutation testing, insteal of just randomly shuffling and dividing the data, <em>we actually figure out all the possible ways it could be divided</em>.This is practical only for relatively small sample sizes. </p>
+<blockquote>
+<p>Here is a question: how did this permutation method divide the data , which has been dicussed <a href="https://stats.stackexchange.com/questions/304246/how-is-the-exact-permutation-test-procedure-carried-out-iterating-over-permutat/304804#304804?newreg=8bd2684ffeb14420b225d6955e5dda8e"><strong>here</strong></a>. the conclusion is that even though the name is called permutaiton methods, the python libararies also use the combination methods to divide data. and the results is same regardless of combination or permutation.</p>
+</blockquote>
+</li>
+<li>
+<p><strong>Bootstrap permutation</strong>: In a bootstrap permutation test, the draws outlined in steps 2 and 3 of the random permutation test are made with replacement instead of without replacement.</p>
+</li>
+</ul>
+<p><strong>Resampling and sampling</strong>
+sampling是抽样，抽取的是总体中的一部分，再用这个抽样样本的属性估计总体，可以用来估计总体参数，但是怎么知道这个估计值的可变性和不确定性如何判断呢，这时候就需要用重采样的方法从样本中多次估计总体参数，这就是resampling重采样。<a href="https://isk.app/2018/06/24/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%B8%A9%E5%92%8C%E7%9A%84%E7%BB%9F%E8%AE%A1%E6%8A%BD%E6%A0%B7%E5%92%8C%E9%87%8D%E9%87%87%E6%A0%B7%E4%BB%8B%E7%BB%8D/">link</a></p>
+<h4>2.3 Statistical Significance and P-Values</h4>
+<p>Statistical significance is how statisticians measure whether an experiment (or even a study of existing data) yields a result more extreme than what chance might produce. If the result is beyond the realm of chance variation, it is said to be statistically significant.</p>
 <h3>Chapter 4. Regression and Prediction</h3>
 <hr />
 <h4><strong>4.1 Simple Linear Regression</strong></br></h4>
